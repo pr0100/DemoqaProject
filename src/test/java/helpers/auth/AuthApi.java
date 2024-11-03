@@ -1,16 +1,19 @@
 package helpers.auth;
 
 import static helpers.config.Endpoints.login;
-import static helpers.config.Endpoints.token;
-import static helpers.config.TestData.defaultPassword;
-import static helpers.config.TestData.defaultUserName;
+import static helpers.config.Config.cfg;
 import static io.restassured.RestAssured.given;
 
-import API.utils.models.UserAccountModel;
-import io.restassured.response.Response;
+import api.utils.RestWrapper;
+import api.utils.models.UserAccountModel;
 import io.restassured.specification.RequestSpecification;
 
+import java.util.HashMap;
+
 public class AuthApi {
+  private RestWrapper loginData;
+  private HashMap<String, String> authParams;
+  private boolean isAuthenticated = false;
 
   public UserAccountModel getParams(String userName, String password) {
     UserAccountModel regParams = new UserAccountModel();
@@ -19,63 +22,71 @@ public class AuthApi {
     return regParams;
   }
 
-  public Response getLoginResponse() {
-    return given()
-        .contentType("application/json")
-        .body(getParams(defaultUserName, defaultPassword))
-        .when()
-        .post(login)
-        .then()
-        .extract()
-        .response();
+  private void authenticate() {
+    if (!isAuthenticated) {
+      RestWrapper postLogin = new RestWrapper()
+              .postWithoutSpec(login, getParams(cfg.getUserName(), cfg.getPassword()));
+      authParams = new HashMap<>();
+      authParams.put("userId", postLogin.getBodyFieldString("userId"));
+      authParams.put("token", postLogin.getBodyFieldString("token"));
+      authParams.put("expires", postLogin.getBodyFieldString("expires"));
+      isAuthenticated = true;
+    }
   }
 
-  public Response getTokenResponse() {
-    return given()
-        .contentType("application/json")
-        .body(getParams(defaultUserName, defaultPassword))
-        .when()
-        .post(token)
-        .then()
-        .extract()
-        .response();
+  public String getUserId() {
+    authenticate();
+    return authParams.get("userId");
   }
 
-//  public AuthCred basicAuth() {
-//    Response responseUser = getLoginResponse();
-//    String username = responseUser.path("username");
-//    String password = responseUser.path("password");
-//    String userID = responseUser.path("userId");
-//    return new AuthCred(username, password, userID);
-//  }
+  public String getToken() {
+    authenticate();
+    return authParams.get("token");
+  }
 
-//  public String userID() {
-//    Response responseUserID = getLoginResponse();
-//    return responseUserID.path("userId");
+  public String getTokenExpires() {
+    authenticate();
+    return authParams.get("expires");
+  }
+
+  private void requestLoginData() {
+    loginData = new RestWrapper()
+            .postWithoutSpec(login, getParams(cfg.getUserName(), cfg.getPassword()));
+  }
+
+//  public String getUserId() {
+//    return authCred().get("userId");
+////    if (loginData == null) {
+////      requestLoginData();
+////    }
+////    return loginData.getBodyFieldString("userId");
 //  }
 //
-//  public String token() {
-//    Response responseToken = getTokenResponse();
-//    return responseToken.path("token");
+//  public String getToken() {
+//    return authCred().get("token");
+////    if (loginData == null) {
+////      requestLoginData();
+////    }
+////    return loginData.getBodyFieldString("token");
 //  }
 //
-//  public String tokenExpires() {
-//    Response responseToken = getTokenResponse();
-//    return responseToken.path("expires");
+//  public String getTokenExpires() {
+//    return authCred().get("expires");
+////    if (loginData == null) {
+////      requestLoginData();
+////    }
+////    return loginData.getBodyFieldString("expires");
 //  }
 
   public RequestSpecification prepareAuthRequest(RequestSpecification spec, String endpoint) {
-    String token = getTokenResponse().path("token");
     return given(spec)
-        //.auth().basic(authApi.basicAuth().getUsername(), authApi.basicAuth().getPassword())
-        .auth().oauth2(token)
+        .auth().oauth2(getToken())
         .basePath(endpoint);
   }
 
   public RequestSpecification prepareBearerAuthRequest(RequestSpecification spec, String endpoint) {
-    String token = getTokenResponse().path("token");
     return given(spec)
-        .header("Authorization", "Bearer " + token)
+        .header("Authorization", "Bearer " + getToken())
         .basePath(endpoint);
   }
 
@@ -83,8 +94,4 @@ public class AuthApi {
     return given(spec)
         .basePath(endpoint);
   }
-
-
-
-
 }

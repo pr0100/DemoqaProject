@@ -1,6 +1,5 @@
-package API.utils.models;
+package api.utils.models;
 
-import java.text.DateFormat;
 import java.util.Date;
 import lombok.Data;
 

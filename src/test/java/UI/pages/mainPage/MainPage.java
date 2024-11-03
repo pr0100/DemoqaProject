@@ -8,14 +8,16 @@ import io.qameta.allure.Description;
 
 public class MainPage {
 
-  @Description("Переход на страницу Forms")
-  public SelenideElement formsLink(){
-    return $("div.home-body > div > div:nth-child(2)");
+  public SelenideElement demoqaLink() {
+    return $("header > a").as("Ссылка на главную страницу");
   }
 
-  @Description("Переход на страницу Book Store Application")
+  public SelenideElement formsLink(){
+    return $("div.home-body > div > div:nth-child(2)").as("Страница Forms");
+  }
+
   public SelenideElement bookStoreLink(){
-    return $("div.home-body > div > div:nth-child(6)");
+    return $("div.home-body > div > div:nth-child(6)").as("Страница Book Store Application");
   }
 
 }

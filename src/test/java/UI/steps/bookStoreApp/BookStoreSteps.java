@@ -13,12 +13,12 @@ public class BookStoreSteps {
 
   @Step("Перейти на страницу Login")
   public void goToLoginPage() {
-    bookStorePage.loginPageElement().click();
+    bookStorePage.loginPageElement().shouldHave(Condition.visible).scrollTo().click();
   }
 
   @Step("Перейти на страницу Profile")
   public void goToProfilePage(){
-    bookStorePage.profilePageElement().shouldHave(Condition.visible).click();
+    bookStorePage.profilePageElement().shouldHave(Condition.visible).scrollTo().click();
   }
 
   @Step("Выбрать количество строк в таблице")

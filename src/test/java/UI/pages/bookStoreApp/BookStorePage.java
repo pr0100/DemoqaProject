@@ -9,24 +9,20 @@ import io.qameta.allure.Description;
 
 public class BookStorePage {
 
-  @Description("Страница Login")
   public SelenideElement loginPageElement(){
-    return $$("#item-0").get(5);
+    return $$("#item-0").get(5).as("Страница Login");
   }
 
-  @Description("Страница Profile")
   public SelenideElement profilePageElement(){
-    return $$("#item-3").get(4);
+    return $$("#item-3").get(4).as("Страница Profile");
   }
 
-  @Description("Поле выбора количества строк в таблице")
   public SelenideElement sizeRows() {
-    return $("div.-center span select");
+    return $("div.-center span select").as("Поле выбора количества строк в таблице");
   }
 
-  @Description("Количество строк в таблице")
   public ElementsCollection numberBooks() {
-    return $(".rt-tbody").$$(".rt-tr-group");
+    return $(".rt-tbody").$$(".rt-tr-group").as("Количество строк в таблице");
   }
 
 }

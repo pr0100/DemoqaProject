@@ -1,12 +1,12 @@
-package API.utils;
+package api.utils;
 
 import static helpers.config.Endpoints.book;
 import static helpers.config.Endpoints.bookISBN;
-import static API.utils.spec.BookStoreSpec.bookStoreRequestSpec;
+import static api.utils.spec.BookStoreSpec.bookStoreRequestSpec;
 import static io.restassured.RestAssured.given;
 
 import helpers.auth.AuthApi;
-import API.utils.models.DeleteBookModel;
+import api.utils.models.DeleteBookModel;
 import io.restassured.response.Response;
 import io.restassured.specification.ResponseSpecification;
 

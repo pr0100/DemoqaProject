@@ -9,10 +9,12 @@ public class TestData {
 
   static SimpleDateFormat sdf = new SimpleDateFormat("MMM/dd/yyyy", Locale.ENGLISH);
   private static final Faker faker = new Faker();
-  public static String defaultUserName = "SSStas";
-  public static String defaultPassword = "!Password123";
-  public static String defaultUserID = "f5b9a0cc-5528-4cf6-a626-05bd954ce36d";
+  //public static String defaultUserName = "SSStas";
+  //public static String defaultPassword = "!Password123";
+  //public static String defaultUserID = "f5b9a0cc-5528-4cf6-a626-05bd954ce36d";
   public static String userName = faker.name().username();
+
+
   public static String password = faker.internet().password(8, 15, true, true, true);
   public static String wrongPassword = faker.internet().password(5, 7);
   public static String firstName = faker.name().firstName();

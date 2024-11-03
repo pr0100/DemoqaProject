@@ -7,8 +7,7 @@ import io.qameta.allure.Description;
 
 public class RegisterPage {
 
-  @Description("Заголовок страницы")
   public SelenideElement titlePage() {
-    return $("#text-center");
+    return $("#text-center").as("Заголовок страницы");
   }
 }

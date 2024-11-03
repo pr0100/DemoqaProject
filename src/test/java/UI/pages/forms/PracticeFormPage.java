@@ -8,91 +8,63 @@ import io.qameta.allure.Description;
 
 public class PracticeFormPage {
 
-  @Description("Поле ввода First Name")
   public SelenideElement firstNameElement(){
-    return $("#firstName");
+    return $("#firstName").as("Поле ввода First Name");
   }
 
-  @Description("Поле ввода Last Name")
   public SelenideElement lastNameElement(){
-    return $("#lastName");
+    return $("#lastName").as("Поле ввода Last Name");
   }
 
-  @Description("Поле ввода Email")
   public SelenideElement emailElement(){
-    return $("#userEmail");
+    return $("#userEmail").as("Поле ввода Email");
   }
 
-  @Description("Поле ввода Gender Male")
   public SelenideElement genderMaleElement(){
-    return $("#gender-radio-1");
+    return $("#gender-radio-1").as("Поле ввода Gender Male");
   }
 
-  @Description("Поле ввода Gender Female")
   public SelenideElement genderFemaleElement(){
-    return $("#gender-radio-2");
+    return $("#gender-radio-2").as("Поле ввода Gender Female");
   }
 
-  @Description("Поле ввода Mobile Number")
   public SelenideElement mobileNumberElement(){
-    return $("#userNumber");
+    return $("#userNumber").as("Поле ввода Mobile Number");
   }
 
-  @Description("Поле ввода Date of Birth")
   public SelenideElement dateBirthElement(){
-    return $("#dateOfBirthInput");
+    return $("#dateOfBirthInput").as("Поле ввода Date of Birth");
   }
 
-  public SelenideElement datePickerMonth(){
-    return $(".react-datepicker__month-select");
-  }
-
-  public SelenideElement datePickerYear(){
-    return $(".react-datepicker__year-select");
-  }
-
-  public SelenideElement datePickerDay(String day){
-    return $x("//div[contains(@class, 'react-datepicker__day') and text()=" + day + " ]");
-  }
-
-
-  @Description("Поле ввода Subjects")
   public SelenideElement subjectsElement(){
-    return $("#subjectsInput");
+    return $("#subjectsInput").as("Поле ввода Subjects");
   }
 
-  @Description("Поле ввода Hobbies Sport")
   public SelenideElement hobbiesSportElement(){
-    return $("#hobbies-checkbox-1");
+    return $("#hobbies-checkbox-1").as("Поле ввода Hobbies Sport");
   }
 
-  @Description("Поле ввода Picture")
   public SelenideElement pictureElement(){
-    return $("input[type='file']");
+    return $("input[type='file']").as("Поле ввода Picture");
   }
 
-  @Description("Поле ввода Address")
   public SelenideElement addressElement(){
-    return $("#currentAddress");
+    return $("#currentAddress").as("Поле ввода Address");
   }
 
-  @Description("Поле ввода State")
   public SelenideElement stateElement(){
-    return $("#state");
+    return $("#state").as("Поле ввода State");
   }
 
-  @Description("Поле ввода City")
   public SelenideElement cityElement(){
-    return $("#city");
+    return $("#city").as("Поле ввода City");
   }
 
-  @Description("Кнопка Submit")
   public SelenideElement submitButton(){
-    return $("#submit");
+    return $("#submit").as("Кнопка Submit");
   }
 
-  @Description("Название модального окна")
   public SelenideElement modalTitle(){
-    return $("#example-modal-sizes-title-lg");
+    return $("#example-modal-sizes-title-lg").as("Название модального окна");
   }
 }

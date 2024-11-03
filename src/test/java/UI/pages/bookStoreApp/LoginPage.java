@@ -7,29 +7,24 @@ import io.qameta.allure.Description;
 
 public class LoginPage {
 
-  @Description("Поле ввода UserName")
   public SelenideElement userNameElement(){
-    return $("#userName");
+    return $("#userName").as("Поле ввода UserName");
   }
 
-  @Description("Поле ввода Password")
   public SelenideElement passwordElement(){
-    return $("#password");
+    return $("#password").as("Поле ввода Password");
   }
 
-  @Description("Кнопка Login")
   public SelenideElement loginBtnElement(){
-    return $("#login");
+    return $("#login").as("Кнопка Login");
   }
 
-  @Description("Кнопка New User")
   public SelenideElement newUserBtnElement(){
-    return $("#newUser");
+    return $("#newUser").as("Кнопка New User");
   }
 
-  @Description("Поле вывода ошибки")
   public SelenideElement outputMessageElement(){
-    return $("#output");
+    return $("#output").as("Поле вывода ошибки");
   }
 
 

@@ -1,5 +1,6 @@
 package UI.steps.bookStoreApp;
 
+import static com.codeborne.selenide.Condition.visible;
 import static helpers.config.Endpoints.loginUrl;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.webdriver;
@@ -36,7 +37,7 @@ public class LoginSteps {
 
   @Step("Нажать кнопку Login")
   public void clickLoginBtnField(){
-    loginPage.loginBtnElement().click();
+    loginPage.loginBtnElement().scrollTo().click();
   }
 
   @Step("Заполнить данные для авторизации и нажать кнопку Login")
@@ -48,7 +49,7 @@ public class LoginSteps {
 
   @Step("Нажать кнопку New User")
   public void clickNewUserBtnField(){
-    loginPage.newUserBtnElement().click();
+    loginPage.newUserBtnElement().scrollTo().click();
   }
 
   @Step("Проверить цвет границ поля UserName")

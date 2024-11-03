@@ -8,9 +8,8 @@ import io.qameta.allure.Description;
 
 public class FormsPage {
 
-  @Description
-  public SelenideElement practiceFormsElement(){
-    return $$("#item-0").get(1);
+  public SelenideElement practiceFormElement(){
+    return $$("#item-0").get(1).as("Страница Practice Form");
   }
 
 }

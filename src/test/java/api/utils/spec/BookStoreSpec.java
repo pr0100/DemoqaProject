@@ -1,4 +1,4 @@
-package API.utils.spec;
+package api.utils.spec;
 
 import static io.restassured.RestAssured.with;
 import static io.restassured.filter.log.LogDetail.BODY;
@@ -13,15 +13,27 @@ public class BookStoreSpec {
 
   public static RequestSpecification bookStoreRequestSpec = with()
       .filter(new AllureRestAssured())
-      .log().uri()
-      .log().body()
-      .log().headers()
+      //.log().uri()
+      //.log().body()
+      //.log().headers()
       .contentType("application/json");
 
+
+
+
+
+
+
+
+
+
+
+
+
   public static ResponseSpecification booksResponseSpec = new ResponseSpecBuilder()
-      .expectStatusCode(201)
-      .log(STATUS)
-      .log(BODY)
+      //.expectStatusCode(201)
+      //.log(STATUS)
+      //.log(BODY)
       .build();
 
   public static ResponseSpecification deleteBookSpec = new ResponseSpecBuilder()

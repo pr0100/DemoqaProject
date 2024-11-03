@@ -79,12 +79,4 @@ public class PracticeFormSteps {
     fillInTheMobileField(mobileNumber);
     clickSubmit();
   }
-
-  @Step()
-  public void chooseDate(String month, String year, String day){
-    practiceFormPage.dateBirthElement().click();
-    practiceFormPage.datePickerMonth().shouldBe(visible).selectOptionContainingText(month);
-    practiceFormPage.datePickerYear().shouldBe(visible).selectOptionContainingText(year);
-    practiceFormPage.datePickerDay(day).shouldBe(visible).click();
-  }
 }

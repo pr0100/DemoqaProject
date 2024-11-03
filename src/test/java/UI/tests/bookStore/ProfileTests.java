@@ -1,20 +1,22 @@
 package UI.tests.bookStore;
 
-import static helpers.config.TestData.defaultUserName;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
-import static io.qameta.allure.Allure.step;
-import static io.restassured.RestAssured.get;
-import static io.restassured.RestAssured.given;
+
+import static helpers.config.Config.cfg;
 
 import UI.steps.bookStoreApp.LoginSteps;
 import UI.steps.bookStoreApp.ProfileSteps;
-import helpers.config.TestBase;
+import helpers.config.BaseTest;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Epic("UI")
+@Feature("Тесты для вкладки Profile")
 @DisplayName("Тесты для вкладки Profile")
-public class ProfileTests extends TestBase {
+@Tag("demoqaUI")
+public class ProfileTests extends BaseTest {
 
   ProfileSteps profileSteps = new ProfileSteps();
   LoginSteps loginSteps = new LoginSteps();
@@ -40,7 +42,7 @@ public class ProfileTests extends TestBase {
   void userName() {
     profileSteps.goToProfilePage();
     profileSteps.addAuthCookie();
-    profileSteps.checkUserName(defaultUserName);
+    profileSteps.checkUserName(cfg.getUserName());
   }
 
   @Test

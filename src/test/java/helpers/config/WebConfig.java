@@ -13,4 +13,13 @@ public interface WebConfig extends Config {
 
   @Key("base.uri")
   String baseUri();
+
+  @Key("user.username")
+  @DefaultValue("SSStas")
+  String getUserName();
+
+  @Key("user.password")
+  @DefaultValue("!Password123")
+  String getPassword();
+
 }

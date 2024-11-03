@@ -1,19 +1,26 @@
 package UI.tests.bookStore;
 
-import static helpers.config.TestData.defaultPassword;
-import static helpers.config.TestData.defaultUserName;
+
+import static helpers.config.Config.cfg;
+
 import static helpers.config.TestData.userName;
 import static helpers.config.TestData.wrongPassword;
 
 import UI.steps.bookStoreApp.LoginSteps;
 import UI.steps.bookStoreApp.ProfileSteps;
 import UI.steps.bookStoreApp.RegisterSteps;
-import helpers.config.TestBase;
+import helpers.config.BaseTest;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Epic("UI")
+@Feature("Тесты для вкладки Login")
 @DisplayName("Тесты для вкладки Login")
-public class LoginTests extends TestBase {
+@Tag("demoqaUI")
+public class LoginTests extends BaseTest {
 
   LoginSteps loginSteps = new LoginSteps();
   ProfileSteps profileSteps = new ProfileSteps();
@@ -33,7 +40,7 @@ public class LoginTests extends TestBase {
   @DisplayName("Успешная авторизация")
   void successfulLogin() {
     loginSteps.goToLoginPage();
-    loginSteps.fillAuthDataField(defaultUserName, defaultPassword);
+    loginSteps.fillAuthDataField(cfg.getUserName(), cfg.getPassword());
     profileSteps.checkCurrentURL();
   }
 

@@ -1,4 +1,4 @@
-package API.utils.models;
+package api.utils.models;
 
 import java.util.List;
 import lombok.Data;

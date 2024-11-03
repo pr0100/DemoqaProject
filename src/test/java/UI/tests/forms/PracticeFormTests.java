@@ -1,39 +1,30 @@
 package UI.tests.forms;
 
-import static helpers.config.TestData.date;
 import static helpers.config.TestData.firstName;
 import static helpers.config.TestData.lastName;
 import static helpers.config.TestData.mobileNumber;
 
 import UI.steps.forms.PracticeFormSteps;
-import helpers.config.TestBase;
-import org.junit.jupiter.api.Disabled;
+import helpers.config.BaseTest;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("Тесты вкладки Practice Form")
-public class PracticeFormTests extends TestBase {
+@Epic("UI")
+@Feature("Тесты для вкладки Practice Form")
+@DisplayName("Тесты для вкладки Practice Form")
+@Tag("demoqaUI")
+public class PracticeFormTests extends BaseTest {
 
-  PracticeFormSteps practSteps = new PracticeFormSteps();
+  PracticeFormSteps practiceFormSteps = new PracticeFormSteps();
 
   @Test
   @DisplayName("Заполнение формы с минимальным количеством полей")
   void successRegistrationWithMinFields() {
-    practSteps.goToPracticeFormPage();
-    practSteps.fillMinAuthDataField(firstName, lastName, mobileNumber);
-    practSteps.checkModalForm();
-  }
-
-  @Disabled
-  @Test
-  void successRegistrationWithMaxFields() {
-    practSteps.goToPracticeFormPage();
-    practSteps.fillInTheFirstNameField(firstName);
-    practSteps.fillInTheLastNameField(lastName);
-    practSteps.chooseTheGenderField();
-    practSteps.fillInTheMobileField(mobileNumber);
-    practSteps.fillInTheDateOfBirthField(date);
-    practSteps.clickSubmit();
-    practSteps.checkModalForm();
+    practiceFormSteps.goToPracticeFormPage();
+    practiceFormSteps.fillMinAuthDataField(firstName, lastName, mobileNumber);
+    practiceFormSteps.checkModalForm();
   }
 }

@@ -7,9 +7,9 @@ public class FormsSteps {
 
   FormsPage formsPage = new FormsPage();
 
-  @Step
+  @Step("Перейти на страницу Practice Form")
   public void goToPracticeFormPage(){
-    formsPage.practiceFormsElement().click();
+    formsPage.practiceFormElement().click();
   }
 
 }

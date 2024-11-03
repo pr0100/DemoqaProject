@@ -33,18 +33,15 @@ public class ProfileSteps {
     webdriver().shouldHave(url(profileUrl));
   }
 
-  @Step
+  @Step("Ввести куки авторизации")
   public void addAuthCookie(){
     String authCookieTokenKey = "token";
     String authCookieExpiresKey = "expires";
     String authCookieUserIDKey = "userID";
 
-    Response responseUserID = authApi.getLoginResponse();
-    String authCookieUserIDValue = responseUserID.path("userId");
-
-    Response responseToken = authApi.getTokenResponse();
-    String authCookieTokenValue = responseToken.path("token");
-    String authCookieExpiresValue = responseToken.path("expires");
+    String authCookieUserIDValue = authApi.getUserId();
+    String authCookieTokenValue = authApi.getToken();
+    String authCookieExpiresValue = authApi.getTokenExpires();
 
     Cookie authCookieToken = new Cookie(authCookieTokenKey, authCookieTokenValue);
     Cookie authCookieExpires = new Cookie(authCookieExpiresKey, authCookieExpiresValue);

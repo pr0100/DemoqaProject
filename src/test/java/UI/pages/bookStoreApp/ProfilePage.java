@@ -8,29 +8,24 @@ import io.qameta.allure.Description;
 
 public class ProfilePage {
 
-  @Description("Кнопка Log out")
   public SelenideElement logOutBtn() {
-    return $x("//button[.='Log out']");
+    return $x("//button[.='Log out']").as("Кнопка Log out");
   }
 
-  @Description("Имя пользователя")
   public SelenideElement userNameLabel() {
-    return $("#userName-value");
+    return $("#userName-value").as("Имя пользователя");
   }
 
-  @Description("Текст для неавторизованных пользователей")
   public SelenideElement notLoggingLabel() {
-    return $("#notLoggin-label");
+    return $("#notLoggin-label").as("Текст для неавторизованных пользователей");
   }
 
-  @Description("Поле поиска книги")
   public SelenideElement searchBookInput() {
-    return $("#searchBox");
+    return $("#searchBox").as("Поле поиска книги");
   }
 
-  @Description("Текст для пустой таблицы")
   public SelenideElement emptyTableLabel() {
-    return $(".rt-noData");
+    return $(".rt-noData").as("Текст для пустой таблицы");
   }
 
 }
