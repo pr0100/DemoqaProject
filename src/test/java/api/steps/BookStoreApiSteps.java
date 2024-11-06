@@ -32,27 +32,6 @@ public class BookStoreApiSteps {
       return isbnList;
   }
 
-  @Step
-  private String isbn(int number) {
-    return new RestWrapper()
-            .getNotAuth(requestSpecification, book, "")
-            .getBodyFieldString("books[" + number + "].isbn");
-  }
-
-  @Step("Получить все коды книг")
-  public String getAllIsbn() {
-    return new RestWrapper()
-            .getNotAuth(requestSpecification, book, "")
-            .getBodyFieldString("books.isbn");
-  }
-
-
-  private int getLength() {
-    return restWrapper.getNotAuth(requestSpecification, book, "")
-            .shouldHaveStatusCode(200)
-            .getBodyFieldStringList("books").size();
-  }
-
   public AddBookRequestModel fillRegParamForAddBookRequest() {
     AddBookRequestModel regParams = new AddBookRequestModel();
     regParams.setUserId(authApi.getUserId());
