@@ -1,4 +1,4 @@
-package UI.steps.bookStoreApp;
+package ui.steps.bookStoreApp;
 
 import static helpers.config.Endpoints.registrUrl;
 import static com.codeborne.selenide.Selenide.webdriver;

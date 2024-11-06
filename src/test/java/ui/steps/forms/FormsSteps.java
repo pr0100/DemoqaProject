@@ -1,6 +1,6 @@
-package UI.steps.forms;
+package ui.steps.forms;
 
-import UI.pages.forms.FormsPage;
+import ui.pages.forms.FormsPage;
 import io.qameta.allure.Step;
 
 public class FormsSteps {

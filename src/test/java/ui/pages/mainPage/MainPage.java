@@ -1,10 +1,9 @@
-package UI.pages.mainPage;
+package ui.pages.mainPage;
 
 
 import static com.codeborne.selenide.Selenide.$;
 
 import com.codeborne.selenide.SelenideElement;
-import io.qameta.allure.Description;
 
 public class MainPage {
 

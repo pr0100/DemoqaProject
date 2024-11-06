@@ -1,11 +1,10 @@
-package UI.steps.forms;
+package ui.steps.forms;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
-import UI.pages.forms.PracticeFormPage;
-import UI.steps.mainPage.MainPageSteps;
+import ui.pages.forms.PracticeFormPage;
+import ui.steps.mainPage.MainPageSteps;
 import io.qameta.allure.Step;
 
 public class PracticeFormSteps {

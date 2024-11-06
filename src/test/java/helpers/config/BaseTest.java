@@ -4,8 +4,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static helpers.config.Config.cfg;
 
-import UI.pages.mainPage.MainPage;
-import UI.steps.mainPage.MainPageSteps;
+import ui.steps.mainPage.MainPageSteps;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

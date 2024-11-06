@@ -1,10 +1,10 @@
-package UI.tests.bookStore;
+package ui.tests.bookStore;
 
 
 import static helpers.config.Config.cfg;
 
-import UI.steps.bookStoreApp.LoginSteps;
-import UI.steps.bookStoreApp.ProfileSteps;
+import ui.steps.bookStoreApp.LoginSteps;
+import ui.steps.bookStoreApp.ProfileSteps;
 import helpers.config.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -12,10 +12,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Epic("UI")
+@Epic("ui")
 @Feature("Тесты для вкладки Profile")
 @DisplayName("Тесты для вкладки Profile")
-@Tag("demoqaUI")
+@Tag("ui")
 public class ProfileTests extends BaseTest {
 
   ProfileSteps profileSteps = new ProfileSteps();

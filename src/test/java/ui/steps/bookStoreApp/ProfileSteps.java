@@ -1,4 +1,4 @@
-package UI.steps.bookStoreApp;
+package ui.steps.bookStoreApp;
 
 import static helpers.config.Endpoints.profileUrl;
 import static com.codeborne.selenide.Condition.text;
@@ -7,11 +7,10 @@ import static com.codeborne.selenide.WebDriverConditions.url;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 import helpers.auth.AuthApi;
-import UI.pages.bookStoreApp.ProfilePage;
-import UI.steps.mainPage.MainPageSteps;
+import ui.pages.bookStoreApp.ProfilePage;
+import ui.steps.mainPage.MainPageSteps;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
-import io.restassured.response.Response;
 import org.openqa.selenium.Cookie;
 
 public class ProfileSteps {

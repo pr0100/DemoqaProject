@@ -1,6 +1,7 @@
 package api.steps;
 
 import static api.utils.spec.Specification.requestSpecification;
+import static helpers.config.Config.cfg;
 import static helpers.config.Endpoints.book;
 import static helpers.config.TestData.wrongIsbn;
 
@@ -21,46 +22,30 @@ public class BookStoreApiSteps {
   AuthApi authApi = new AuthApi();
   RestWrapper restWrapper = new RestWrapper();
 
+  @Step
   private List<IsbnModel> getRandomListAvailableIsbn() {
       List<IsbnModel> isbnList = new ArrayList<>();
       IsbnModel isbn = new IsbnModel();
       isbn.setIsbn(restWrapper.getNotAuth(requestSpecification, book, "")
               .getBodyFieldString("books[" + TestData.getElemArrayBooks() + "].isbn"));
       isbnList.add(isbn);
-//      for (int i = 0; i < number; i++){
-//        IsbnModel isbn = new IsbnModel();
-//        isbn.setIsbn(restWrapper.getNotAuth(requestSpecification, book, "")
-//                        .getBodyFieldString("books[" + getElemArrayBooks() + "].isbn"));
-//        isbnList.add(isbn);
-//      }
       return isbnList;
   }
 
-
-
+  @Step
   private String isbn(int number) {
     return new RestWrapper()
             .getNotAuth(requestSpecification, book, "")
             .getBodyFieldString("books[" + number + "].isbn");
   }
 
-//  private String isbn() {
-//    return new RestWrapper()
-//            .getNotAuth(requestSpecification, book, "")
-//            .getBodyFieldString("books.isbn");
-//  }
-
   @Step("Получить все коды книг")
   public String getAllIsbn() {
     return new RestWrapper()
             .getNotAuth(requestSpecification, book, "")
             .getBodyFieldString("books.isbn");
-//    List<String> isbnList = new ArrayList<>();
-//    for (int i = 0; i < getLength(); i++){
-//      isbnList.add(isbn(i));
-//    }
-//    return isbnList;
   }
+
 
   private int getLength() {
     return restWrapper.getNotAuth(requestSpecification, book, "")
@@ -68,7 +53,6 @@ public class BookStoreApiSteps {
             .getBodyFieldStringList("books").size();
   }
 
-  @Step("Заполнить параметры запроса для добавления книги")
   public AddBookRequestModel fillRegParamForAddBookRequest() {
     AddBookRequestModel regParams = new AddBookRequestModel();
     regParams.setUserId(authApi.getUserId());
@@ -76,7 +60,6 @@ public class BookStoreApiSteps {
     return regParams;
   }
 
-  @Step("Заполнить параметры запроса для удаления книги")
   public DeleteBookModel fillRegParamForDeleteBookRequest(String isbn, String user) {
     DeleteBookModel regParams = new DeleteBookModel();
     regParams.setIsbn(isbn);
@@ -86,7 +69,7 @@ public class BookStoreApiSteps {
 
   @Step("Путь для поиска определенной книги")
   public String setPathForISBNSearch() {
-    return "?ISBN=" + isbn(TestData.getElemArrayBooks());
+    return "?ISBN=" + cfg.getAvailableIsbn();
   }
 
   @Step("Путь для пользователя")
@@ -98,6 +81,4 @@ public class BookStoreApiSteps {
   public String setPathForWrongISBNSearch() {
     return "?ISBN=" + wrongIsbn;
   }
-
-
 }

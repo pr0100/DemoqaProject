@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Epic("API")
 @Feature("Тесты методов Account")
 @DisplayName("Тесты методов Account")
-@Tag("demoqaAPI")
+@Tag("API")
 public class AccountTests extends ApiBase {
 
   AuthApi authApi = new AuthApi();
@@ -48,12 +48,5 @@ public class AccountTests extends ApiBase {
     assertTrue(answer.getBodyFieldStringList("books").isEmpty());
   }
 
-  @Test
-  void test() {
-    System.out.println(
-            new RestWrapper()
-            .getNotAuth(requestSpecification, book, "")
-            .getBodyFieldString("books.isbn"));
-  }
 
 }

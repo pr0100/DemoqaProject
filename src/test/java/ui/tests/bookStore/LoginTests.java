@@ -1,4 +1,4 @@
-package UI.tests.bookStore;
+package ui.tests.bookStore;
 
 
 import static helpers.config.Config.cfg;
@@ -6,9 +6,9 @@ import static helpers.config.Config.cfg;
 import static helpers.config.TestData.userName;
 import static helpers.config.TestData.wrongPassword;
 
-import UI.steps.bookStoreApp.LoginSteps;
-import UI.steps.bookStoreApp.ProfileSteps;
-import UI.steps.bookStoreApp.RegisterSteps;
+import ui.steps.bookStoreApp.LoginSteps;
+import ui.steps.bookStoreApp.ProfileSteps;
+import ui.steps.bookStoreApp.RegisterSteps;
 import helpers.config.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -16,10 +16,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Epic("UI")
+@Epic("ui")
 @Feature("Тесты для вкладки Login")
 @DisplayName("Тесты для вкладки Login")
-@Tag("demoqaUI")
+@Tag("ui")
 public class LoginTests extends BaseTest {
 
   LoginSteps loginSteps = new LoginSteps();

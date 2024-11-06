@@ -11,7 +11,7 @@ import io.restassured.specification.RequestSpecification;
 import java.util.HashMap;
 
 public class AuthApi {
-  private RestWrapper loginData;
+
   private HashMap<String, String> authParams;
   private boolean isAuthenticated = false;
 
@@ -48,35 +48,6 @@ public class AuthApi {
     authenticate();
     return authParams.get("expires");
   }
-
-  private void requestLoginData() {
-    loginData = new RestWrapper()
-            .postWithoutSpec(login, getParams(cfg.getUserName(), cfg.getPassword()));
-  }
-
-//  public String getUserId() {
-//    return authCred().get("userId");
-////    if (loginData == null) {
-////      requestLoginData();
-////    }
-////    return loginData.getBodyFieldString("userId");
-//  }
-//
-//  public String getToken() {
-//    return authCred().get("token");
-////    if (loginData == null) {
-////      requestLoginData();
-////    }
-////    return loginData.getBodyFieldString("token");
-//  }
-//
-//  public String getTokenExpires() {
-//    return authCred().get("expires");
-////    if (loginData == null) {
-////      requestLoginData();
-////    }
-////    return loginData.getBodyFieldString("expires");
-//  }
 
   public RequestSpecification prepareAuthRequest(RequestSpecification spec, String endpoint) {
     return given(spec)

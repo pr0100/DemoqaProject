@@ -1,7 +1,7 @@
-package UI.tests.bookStore;
+package ui.tests.bookStore;
 
-import UI.steps.bookStoreApp.BookStoreSteps;
-import UI.steps.mainPage.MainPageSteps;
+import ui.steps.bookStoreApp.BookStoreSteps;
+import ui.steps.mainPage.MainPageSteps;
 import helpers.config.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -9,10 +9,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Epic("UI")
+@Epic("ui")
 @Feature("Тесты для вкладки Book Store")
 @DisplayName("Тесты для вкладки Book Store")
-@Tag("demoqaUI")
+@Tag("ui")
 public class BookStoreTests extends BaseTest {
 
   MainPageSteps mainPageSteps = new MainPageSteps();

@@ -1,10 +1,10 @@
-package UI.tests.forms;
+package ui.tests.forms;
 
 import static helpers.config.TestData.firstName;
 import static helpers.config.TestData.lastName;
 import static helpers.config.TestData.mobileNumber;
 
-import UI.steps.forms.PracticeFormSteps;
+import ui.steps.forms.PracticeFormSteps;
 import helpers.config.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Epic("UI")
+@Epic("ui")
 @Feature("Тесты для вкладки Practice Form")
 @DisplayName("Тесты для вкладки Practice Form")
 @Tag("demoqaUI")

@@ -1,8 +1,8 @@
-package UI.steps.bookStoreApp;
+package ui.steps.bookStoreApp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import UI.pages.bookStoreApp.BookStorePage;
+import ui.pages.bookStoreApp.BookStorePage;
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import java.time.Duration;

@@ -22,4 +22,7 @@ public interface WebConfig extends Config {
   @DefaultValue("!Password123")
   String getPassword();
 
+  @Key("book.isbn")
+  @DefaultValue("9781449325862")
+  String getAvailableIsbn();
 }

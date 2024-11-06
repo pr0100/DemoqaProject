@@ -1,7 +1,7 @@
-package UI.steps.mainPage;
+package ui.steps.mainPage;
 
 
-import UI.pages.mainPage.MainPage;
+import ui.pages.mainPage.MainPage;
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 

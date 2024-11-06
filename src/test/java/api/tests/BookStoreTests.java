@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Epic("API")
 @Feature("Тесты методов Book Store")
 @DisplayName("Тесты методов Book Store")
-@Tag("demoqaAPI")
+@Tag("API")
 public class BookStoreTests extends ApiBase {
 
   BookStoreApiSteps bookStoreApiSteps = new BookStoreApiSteps();
@@ -51,18 +51,19 @@ public class BookStoreTests extends ApiBase {
   @Test
   @DisplayName("Поиск всех книг")
   void successfulBooksSearch() {
-    //assertEquals(8, bookStoreApiSteps.getAllIsbn().size());
+    new RestWrapper()
+        .getNotAuth(requestSpecification, book, "")
+        .shouldHaveStatusCode(200)
+        .shouldHaveJsonPath("books.isbn[1]", containsString("9781449331818"));
   }
 
   @Test
   @DisplayName("Успешный поиск книги с определенным ISBN")
   void successfulBookSearch() {
-    bookStoreApiSteps.getAllIsbn()
-            .contains(
-                    new RestWrapper()
-                    .getNotAuth(requestSpecification, bookISBN, bookStoreApiSteps.setPathForISBNSearch())
-                    .shouldHaveStatusCode(200)
-                    .getBodyFieldString("isbn"));
+    new RestWrapper()
+        .getNotAuth(requestSpecification, bookISBN, bookStoreApiSteps.setPathForISBNSearch())
+        .shouldHaveStatusCode(200)
+        .shouldHaveJsonPath("isbn", containsString(cfg.getAvailableIsbn()));
   }
 
   @Test

@@ -1,13 +1,12 @@
-package UI.steps.bookStoreApp;
+package ui.steps.bookStoreApp;
 
-import static com.codeborne.selenide.Condition.visible;
 import static helpers.config.Endpoints.loginUrl;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.webdriver;
 import static com.codeborne.selenide.WebDriverConditions.url;
 
-import UI.pages.bookStoreApp.LoginPage;
-import UI.steps.mainPage.MainPageSteps;
+import ui.pages.bookStoreApp.LoginPage;
+import ui.steps.mainPage.MainPageSteps;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.conditions.CssValue;
 import io.qameta.allure.Step;
