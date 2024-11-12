@@ -3,6 +3,8 @@ package ui.steps.forms;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ui.pages.forms.PracticeFormPage;
 import ui.steps.mainPage.MainPageSteps;
 import io.qameta.allure.Step;
@@ -12,11 +14,13 @@ public class PracticeFormSteps {
   private final MainPageSteps mainPageSteps = new MainPageSteps();
   private final FormsSteps formsSteps = new FormsSteps();
   private final PracticeFormPage practiceFormPage = new PracticeFormPage();
+  protected static final Logger LOGGER = LogManager.getLogger();
 
   @Step("Переход на страницу 'Practice Form'")
   public void goToPracticeFormPage(){
     mainPageSteps.goToFormsPage();
     formsSteps.goToPracticeFormPage();
+    LOGGER.info("Practice Form page opened");
   }
 
   @Step("Заполнить поле 'First Name'")
@@ -77,5 +81,7 @@ public class PracticeFormSteps {
     chooseTheGenderField();
     fillInTheMobileField(mobileNumber);
     clickSubmit();
+    LOGGER.info("All required field filled");
+
   }
 }

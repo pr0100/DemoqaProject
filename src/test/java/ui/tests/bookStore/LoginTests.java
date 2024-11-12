@@ -3,9 +3,8 @@ package ui.tests.bookStore;
 
 import static helpers.config.Config.cfg;
 
-import static helpers.config.TestData.userName;
-import static helpers.config.TestData.wrongPassword;
 
+import helpers.config.TestData;
 import ui.steps.bookStoreApp.LoginSteps;
 import ui.steps.bookStoreApp.ProfileSteps;
 import ui.steps.bookStoreApp.RegisterSteps;
@@ -48,7 +47,7 @@ public class LoginTests extends BaseTest {
   @DisplayName("Неуспешная авторизация")
   void unsuccessfulLogin() {
     loginSteps.goToLoginPage();
-    loginSteps.fillAuthDataField(userName, wrongPassword);
+    loginSteps.fillAuthDataField(TestData.getSuccessfulUserName(), TestData.getWrongPassword());
     loginSteps.checkCurrentURL();
     loginSteps.checkErrorMessage();
   }

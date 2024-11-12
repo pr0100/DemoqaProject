@@ -3,7 +3,6 @@ package api.steps;
 import static api.utils.spec.Specification.requestSpecification;
 import static helpers.config.Config.cfg;
 import static helpers.config.Endpoints.book;
-import static helpers.config.TestData.wrongIsbn;
 
 
 import api.utils.RestWrapper;
@@ -16,26 +15,20 @@ import io.qameta.allure.Step;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BookStoreApiSteps {
 
   AuthApi authApi = new AuthApi();
   RestWrapper restWrapper = new RestWrapper();
+  protected static final Logger LOGGER = LogManager.getLogger();
 
-  @Step
-  private List<IsbnModel> getRandomListAvailableIsbn() {
-      List<IsbnModel> isbnList = new ArrayList<>();
-      IsbnModel isbn = new IsbnModel();
-      isbn.setIsbn(restWrapper.getNotAuth(requestSpecification, book, "")
-              .getBodyFieldString("books[" + TestData.getElemArrayBooks() + "].isbn"));
-      isbnList.add(isbn);
-      return isbnList;
-  }
 
   public AddBookRequestModel fillRegParamForAddBookRequest() {
     AddBookRequestModel regParams = new AddBookRequestModel();
     regParams.setUserId(authApi.getUserId());
-    regParams.setCollectionOfIsbns(getRandomListAvailableIsbn());
+    regParams.setCollectionOfIsbns(getAvailableIsbn());
     return regParams;
   }
 
@@ -46,18 +39,32 @@ public class BookStoreApiSteps {
     return regParams;
   }
 
-  @Step("Путь для поиска определенной книги")
+  @Step("Получить доступный isbn книги")
+  private List<IsbnModel> getAvailableIsbn() {
+    LOGGER.info("Got available isbn");
+    List<IsbnModel> isbnList = new ArrayList<>();
+    IsbnModel isbn = new IsbnModel();
+    isbn.setIsbn(restWrapper.get(requestSpecification, book)
+        .getBodyFieldString("books[" + TestData.getElemArrayBooks() + "].isbn"));
+    isbnList.add(isbn);
+    return isbnList;
+  }
+
+  @Step("Задать путь для поиска определенной книги")
   public String setPathForISBNSearch() {
+    LOGGER.info("Path assigned for isbn search");
     return "?ISBN=" + cfg.getAvailableIsbn();
   }
 
-  @Step("Путь для пользователя")
+  @Step("Задать путь для пользователя")
   public String setPathForUserID(){
+    LOGGER.info("Path assigned for userID");
     return "?UserId=" + authApi.getUserId();
   }
 
-  @Step("Путь для поиска несуществующей книги")
+  @Step("Задать путь для поиска несуществующей книги")
   public String setPathForWrongISBNSearch() {
-    return "?ISBN=" + wrongIsbn;
+    LOGGER.info("Path assigned for wrong isbn search");
+    return "?ISBN=" + TestData.getWrongIsbn();
   }
 }

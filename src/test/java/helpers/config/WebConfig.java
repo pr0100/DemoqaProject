@@ -11,9 +11,6 @@ public interface WebConfig extends Config {
   @Key("base.url")
   String baseUrl();
 
-  @Key("base.uri")
-  String baseUri();
-
   @Key("user.username")
   @DefaultValue("SSStas")
   String getUserName();
@@ -21,6 +18,10 @@ public interface WebConfig extends Config {
   @Key("user.password")
   @DefaultValue("!Password123")
   String getPassword();
+
+  @Key("user.id")
+  @DefaultValue("f5b9a0cc-1128-4cf6-a626-05bd954ce36d")
+  String getID();
 
   @Key("book.isbn")
   @DefaultValue("9781449325862")

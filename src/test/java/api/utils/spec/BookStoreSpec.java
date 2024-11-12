@@ -13,47 +13,10 @@ public class BookStoreSpec {
 
   public static RequestSpecification bookStoreRequestSpec = with()
       .filter(new AllureRestAssured())
-      //.log().uri()
-      //.log().body()
-      //.log().headers()
+      //.log4j2.xml().uri()
+      //.log4j2.xml().body()
+      //.log4j2.xml().headers()
       .contentType("application/json");
-
-
-
-
-
-
-
-
-
-
-
-
-
-  public static ResponseSpecification booksResponseSpec = new ResponseSpecBuilder()
-      //.expectStatusCode(201)
-      //.log(STATUS)
-      //.log(BODY)
-      .build();
-
-  public static ResponseSpecification deleteBookSpec = new ResponseSpecBuilder()
-      .expectStatusCode(204)
-      .log(STATUS)
-      .log(BODY)
-      .build();
-
-  public static ResponseSpecification errorDeleteBookSpec = new ResponseSpecBuilder()
-      .expectStatusCode(400)
-      .log(STATUS)
-      .log(BODY)
-      .build();
-
-
-  public static ResponseSpecification errorNotAuthSpec = new ResponseSpecBuilder()
-      .expectStatusCode(401)
-      .log(STATUS)
-      .log(BODY)
-      .build();
 
 }
 

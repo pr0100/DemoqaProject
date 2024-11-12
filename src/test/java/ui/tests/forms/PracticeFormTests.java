@@ -1,9 +1,7 @@
 package ui.tests.forms;
 
-import static helpers.config.TestData.firstName;
-import static helpers.config.TestData.lastName;
-import static helpers.config.TestData.mobileNumber;
 
+import helpers.config.TestData;
 import ui.steps.forms.PracticeFormSteps;
 import helpers.config.BaseTest;
 import io.qameta.allure.Epic;
@@ -15,7 +13,7 @@ import org.junit.jupiter.api.Test;
 @Epic("ui")
 @Feature("Тесты для вкладки Practice Form")
 @DisplayName("Тесты для вкладки Practice Form")
-@Tag("demoqaUI")
+@Tag("ui")
 public class PracticeFormTests extends BaseTest {
 
   PracticeFormSteps practiceFormSteps = new PracticeFormSteps();
@@ -24,7 +22,8 @@ public class PracticeFormTests extends BaseTest {
   @DisplayName("Заполнение формы с минимальным количеством полей")
   void successRegistrationWithMinFields() {
     practiceFormSteps.goToPracticeFormPage();
-    practiceFormSteps.fillMinAuthDataField(firstName, lastName, mobileNumber);
+    practiceFormSteps.fillMinAuthDataField(TestData.getSuccessfulFirstName(), TestData.getSuccessfulLastName(), TestData.getSuccessfulMobileNumber());
     practiceFormSteps.checkModalForm();
   }
+
 }

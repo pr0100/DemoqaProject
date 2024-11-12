@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 
 import static api.utils.spec.Specification.requestSpecification;
+import static api.utils.spec.Specification.authSpecification;
 import static helpers.config.Endpoints.accountUser;
 import static helpers.config.Endpoints.book;
 import static helpers.config.TestData.*;
@@ -21,10 +22,10 @@ import static helpers.config.Config.cfg;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@Epic("API")
+@Epic("api")
 @Feature("Тесты методов Account")
 @DisplayName("Тесты методов Account")
-@Tag("API")
+@Tag("api")
 public class AccountTests extends ApiBase {
 
   AuthApi authApi = new AuthApi();
@@ -33,7 +34,7 @@ public class AccountTests extends ApiBase {
   @DisplayName("Информация об аккаунте")
   void getAccountData() {
     new RestWrapper()
-            .getAuth(requestSpecification, accountUser, authApi.getUserId())
+            .get(authSpecification,accountUser + authApi.getUserId())
             .shouldHaveStatusCode(200)
             .shouldHaveJsonPath("username", containsString(cfg.getUserName()));
   }
@@ -42,7 +43,8 @@ public class AccountTests extends ApiBase {
   @DisplayName("Успешная регистрация пользователя")
   void successfulRegistrationUser() {
     RestWrapper answer = new RestWrapper()
-            .post(requestSpecification, accountUser, authApi.getParams(TestData.getSuccessfulUserName(), TestData.getSuccessfulPasswd()));
+            .post(authSpecification,
+                accountUser, authApi.getParams(TestData.getSuccessfulUserName(), TestData.getSuccessfulPasswd()));
     answer.shouldHaveStatusCode(201)
             .shouldHaveJsonPath("userID", not(emptyOrNullString()));
     assertTrue(answer.getBodyFieldStringList("books").isEmpty());

@@ -3,6 +3,7 @@ package helpers.config;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static helpers.config.Config.cfg;
+import static io.restassured.RestAssured.baseURI;
 
 import ui.steps.mainPage.MainPageSteps;
 import com.codeborne.selenide.Configuration;
@@ -20,6 +21,7 @@ public class BaseTest {
     Configuration.pageLoadStrategy = cfg.pageLoadStrategy();
     Configuration.screenshots = false;
     Configuration.savePageSource = false;
+    baseURI = cfg.baseUrl();
     open(cfg.baseUrl());
     getWebDriver().manage().window().maximize();
   }
