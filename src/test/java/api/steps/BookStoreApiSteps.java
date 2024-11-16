@@ -5,7 +5,7 @@ import static helpers.config.Config.cfg;
 import static helpers.config.Endpoints.book;
 
 
-import api.utils.RestWrapper;
+import api.utils.wrapper.RestWrapper;
 import helpers.auth.AuthApi;
 import api.utils.models.AddBookRequestModel;
 import api.utils.models.DeleteBookModel;

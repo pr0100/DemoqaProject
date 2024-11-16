@@ -4,7 +4,7 @@ import static helpers.config.Endpoints.accountUser;
 import static api.utils.spec.Specification.authSpecification;
 
 
-import api.utils.RestWrapper;
+import api.utils.wrapper.RestWrapper;
 import helpers.auth.AuthApi;
 import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;

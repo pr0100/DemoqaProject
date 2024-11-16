@@ -2,7 +2,7 @@ package ui.tests.bookStore;
 
 import ui.steps.bookStoreApp.BookStoreSteps;
 import ui.steps.mainPage.MainPageSteps;
-import helpers.config.BaseTest;
+import helpers.utils.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;

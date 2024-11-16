@@ -1,8 +1,5 @@
 package ui.steps.bookStoreApp;
 
-import static api.utils.spec.Specification.requestSpecification;
-import static helpers.config.Config.cfg;
-import static helpers.config.Endpoints.login;
 import static helpers.config.Endpoints.profileUrl;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.webdriver;
@@ -10,10 +7,7 @@ import static com.codeborne.selenide.WebDriverConditions.url;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static io.restassured.RestAssured.given;
 
-import api.utils.RestWrapper;
 import helpers.auth.AuthApi;
-import io.restassured.response.Response;
-import java.util.HashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ui.pages.bookStoreApp.ProfilePage;

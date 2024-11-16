@@ -5,33 +5,30 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>project</groupId>
-  <artifactId>FinalProject</artifactId>
+  <artifactId>DemoqaProject</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <properties>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <junit-platform-launcher.version>1.8.2</junit-platform-launcher.version>
-    <junit-jupiter.version>5.9.3</junit-jupiter.version>
-    <rest-assured.version>4.5.1</rest-assured.version>
+    <junit-platform-launcher.version>1.11.3</junit-platform-launcher.version>
+    <junit-jupiter.version>5.11.3</junit-jupiter.version>
+    <rest-assured.version>5.5.0</rest-assured.version>
     <json-schema-validator.version>5.5.0</json-schema-validator.version>
-    <lombok.version>1.18.34</lombok.version>
+    <lombok.version>1.18.36</lombok.version>
     <javafaker.version>1.0.2</javafaker.version>
-    <allure-junit5.version>2.17.3</allure-junit5.version>
-    <allure-rest-assured.version>2.17.3</allure-rest-assured.version>
-    <allure-selenide.version>2.20.1</allure-selenide.version>
+    <allure-junit5.version>2.29.0</allure-junit5.version>
+    <allure-rest-assured.version>2.29.0</allure-rest-assured.version>
+    <allure-selenide.version>2.29.0</allure-selenide.version>
     <aspectjweaver.version>1.9.22.1</aspectjweaver.version>
-    <allure-maven.version>2.13.0</allure-maven.version>
+    <allure-maven.version>2.15.2</allure-maven.version>
     <selenide.version>6.19.1</selenide.version>
-    <log4j-api.version>2.23.1</log4j-api.version>
-    <log4j-core.version>2.23.1</log4j-core.version>
+    <log4j-api.version>2.24.1</log4j-api.version>
+    <log4j-core.version>2.24.1</log4j-core.version>
     <owner.version>1.0.12</owner.version>
-    <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-    <maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
-    <junit-platform-surefire-provider.version>1.1.0</junit-platform-surefire-provider.version>
-    <pdf-test.version>1.8.1</pdf-test.version>
-    <xls-test.version>1.7.1</xls-test.version>
+    <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+    <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+    <junit-platform-surefire-provider.version>1.3.2</junit-platform-surefire-provider.version>
   </properties>
 
   <dependencies>
@@ -110,17 +107,6 @@
       <artifactId>owner</artifactId>
       <version>${owner.version}</version>
     </dependency>
-    <dependency>
-      <groupId>com.codeborne</groupId>
-      <artifactId>pdf-test</artifactId>
-      <version>${pdf-test.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.codeborne</groupId>
-      <artifactId>xls-test</artifactId>
-      <version>${xls-test.version}</version>
-    </dependency>
-
   </dependencies>
 
   <build>

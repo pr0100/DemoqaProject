@@ -18,7 +18,7 @@ public class TestData {
     StringBuilder sb = new StringBuilder(length);
 
     for (int i = 0; i < length; i++) {
-      int digit = random.nextInt(10); // Генерируем случайную цифру от 0 до 9
+      int digit = random.nextInt(10);
       sb.append(digit);
     }
 
@@ -30,7 +30,7 @@ public class TestData {
   }
 
   public static String getSuccessfulPasswd() {
-    return faker.internet().password(8, 15, true, true, true);
+    return "1!s" + faker.internet().password(8, 15, true, true, true);
   }
 
   public static String getWrongPassword() {

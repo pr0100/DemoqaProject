@@ -1,8 +1,8 @@
 package api.tests;
 
-import api.utils.RestWrapper;
+import api.utils.wrapper.RestWrapper;
 import helpers.auth.AuthApi;
-import helpers.config.ApiBase;
+import helpers.utils.ApiBase;
 import helpers.config.TestData;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -11,11 +11,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 
-import static api.utils.spec.Specification.requestSpecification;
 import static api.utils.spec.Specification.authSpecification;
 import static helpers.config.Endpoints.accountUser;
-import static helpers.config.Endpoints.book;
-import static helpers.config.TestData.*;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.emptyOrNullString;
 import static helpers.config.Config.cfg;

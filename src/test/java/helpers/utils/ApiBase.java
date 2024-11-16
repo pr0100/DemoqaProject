@@ -1,9 +1,8 @@
-package helpers.config;
+package helpers.utils;
 
 import static io.restassured.RestAssured.baseURI;
 import static helpers.config.Config.cfg;
 
-import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.BeforeAll;
 
 public class ApiBase {

@@ -3,7 +3,7 @@ package helpers.auth;
 import static helpers.config.Endpoints.login;
 import static helpers.config.Config.cfg;
 
-import api.utils.RestWrapper;
+import api.utils.wrapper.RestWrapper;
 import api.utils.models.UserAccountModel;
 import static api.utils.spec.Specification.requestSpecification;
 

@@ -3,7 +3,7 @@ package ui.tests.forms;
 
 import helpers.config.TestData;
 import ui.steps.forms.PracticeFormSteps;
-import helpers.config.BaseTest;
+import helpers.utils.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;

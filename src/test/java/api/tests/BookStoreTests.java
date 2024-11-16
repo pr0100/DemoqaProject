@@ -2,15 +2,12 @@ package api.tests;
 
 import api.steps.AccountApiSteps;
 import api.steps.BookStoreApiSteps;
-import api.utils.RestWrapper;
+import api.utils.wrapper.RestWrapper;
 import helpers.auth.AuthApi;
-import helpers.config.ApiBase;
+import helpers.utils.ApiBase;
 import helpers.config.TestData;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -18,10 +15,8 @@ import org.junit.jupiter.api.Test;
 
 import static api.utils.spec.Specification.authSpecification;
 import static api.utils.spec.Specification.requestSpecification;
-import static helpers.auth.AuthApi.getParams;
 import static helpers.config.Config.cfg;
 import static helpers.config.Endpoints.*;
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 @Epic("api")

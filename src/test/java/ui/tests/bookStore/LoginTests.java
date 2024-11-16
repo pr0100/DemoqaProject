@@ -8,7 +8,7 @@ import helpers.config.TestData;
 import ui.steps.bookStoreApp.LoginSteps;
 import ui.steps.bookStoreApp.ProfileSteps;
 import ui.steps.bookStoreApp.RegisterSteps;
-import helpers.config.BaseTest;
+import helpers.utils.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
