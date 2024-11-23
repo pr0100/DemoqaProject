@@ -27,4 +27,15 @@ public class ProfilePage {
     return $(".rt-noData").as("Текст для пустой таблицы");
   }
 
+  public SelenideElement deleteRecordBtn() {
+    return $("#delete-record-undefined").as("Кнопка удаления книги");
+  }
+
+  public SelenideElement modalFormOkBtn() {
+    return $("#closeSmallModal-ok").as("Кнопка 'ОК' в окне");
+  }
+
+  public SelenideElement deleteAllRecordsBtn() {
+    return $x("//button[.='Delete All Books']").as("Кнопка удаления всех книг");
+  }
 }

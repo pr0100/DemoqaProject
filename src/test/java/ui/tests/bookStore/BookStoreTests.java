@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 @Epic("ui")
 @Feature("Тесты для вкладки Book Store")
-@DisplayName("Тесты для вкладки Book Store")
 @Tag("ui")
 public class BookStoreTests extends BaseTest {
 

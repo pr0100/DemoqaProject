@@ -1,27 +1,27 @@
 package ui.steps.bookStoreApp;
 
-import static helpers.config.Endpoints.profileUrl;
+import static com.codeborne.selenide.Selenide.$;
+import static helpers.config.Endpoints.PROFILE_URL;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.webdriver;
 import static com.codeborne.selenide.WebDriverConditions.url;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static io.restassured.RestAssured.given;
 
-import helpers.auth.AuthApi;
+import helpers.auth.Authorization;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ui.pages.bookStoreApp.ProfilePage;
 import ui.steps.mainPage.MainPageSteps;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
-import org.openqa.selenium.Cookie;
 
 public class ProfileSteps {
 
   MainPageSteps mainPageSteps = new MainPageSteps();
   BookStoreSteps bookStoreSteps = new BookStoreSteps();
   ProfilePage profilePage = new ProfilePage();
-  AuthApi authApi = new AuthApi();
+  Authorization authorization = new Authorization();
   protected static final Logger LOGGER = LogManager.getLogger();
 
   @Step("Перейти на страницу Profile")
@@ -34,34 +34,25 @@ public class ProfileSteps {
 
   @Step("Проверить текущий URL")
   public void checkCurrentURL(){
-    webdriver().shouldHave(url(profileUrl));
+    webdriver().shouldHave(url(PROFILE_URL));
     LOGGER.info("URL correct");
   }
 
   @Step("Ввести куки авторизации")
   public void addAuthCookie(){
-    String authCookieTokenKey = "token";
-    String authCookieExpiresKey = "expires";
-    String authCookieUserIDKey = "userID";
+    String authCookieUserIDValue = authorization.getUserId();
+    String authCookieTokenValue = authorization.getToken();
+    String authCookieExpiresValue = authorization.getTokenExpires();
 
-    String authCookieUserIDValue = authApi.getUserId();
-    String authCookieTokenValue = authApi.getToken();
-    String authCookieExpiresValue = authApi.getTokenExpires();
+    authorization.addCookie("userID", authCookieUserIDValue);
+    authorization.addCookie("token", authCookieTokenValue);
+    authorization.addCookie("expires", authCookieExpiresValue);
 
-    Cookie authCookieToken = new Cookie(authCookieTokenKey, authCookieTokenValue);
-    Cookie authCookieExpires = new Cookie(authCookieExpiresKey, authCookieExpiresValue);
-    Cookie authCookieUserID = new Cookie(authCookieUserIDKey, authCookieUserIDValue);
-
-    getWebDriver().manage().addCookie(authCookieToken);
-    getWebDriver().manage().addCookie(authCookieExpires);
-    getWebDriver().manage().addCookie(authCookieUserID);
     getWebDriver().navigate().refresh();
 
-    System.out.println(authCookieToken);
-    System.out.println(authCookieExpires);
-    System.out.println(authCookieUserID);
     LOGGER.info("Auth cookie filled");
   }
+
 
   @Step("Деавторизоваться")
   public void logOut() {
@@ -92,5 +83,19 @@ public class ProfileSteps {
   public void checkTableLabel() {
     profilePage.emptyTableLabel();
     LOGGER.info("Table label empty");
+  }
+
+  @Step("Удалить книгу")
+  public void deleteRecord(){
+    profilePage.deleteRecordBtn().click();
+    profilePage.modalFormOkBtn().click();
+    LOGGER.info("Record deleted");
+  }
+
+  @Step("Удалить все книги")
+  public void deleteAllRecords() {
+    profilePage.deleteAllRecordsBtn().click();
+    profilePage.modalFormOkBtn().click();
+    LOGGER.info("All records deleted");
   }
 }

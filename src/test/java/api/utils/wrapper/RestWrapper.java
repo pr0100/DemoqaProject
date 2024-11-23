@@ -16,8 +16,7 @@ import static io.restassured.RestAssured.given;
 public class RestWrapper {
 
     private Response response;
-    protected static final Logger LOGGER = LogManager.getLogger();
-
+    protected final Logger LOGGER = LogManager.getLogger();
 
     public RestWrapper post(RequestSpecification spec, String endpoint, Object body) {
         this.response = given(spec)

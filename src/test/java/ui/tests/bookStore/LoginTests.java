@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 
 @Epic("ui")
 @Feature("Тесты для вкладки Login")
-@DisplayName("Тесты для вкладки Login")
 @Tag("ui")
 public class LoginTests extends BaseTest {
 

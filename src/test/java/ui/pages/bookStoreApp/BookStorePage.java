@@ -2,6 +2,7 @@ package ui.pages.bookStoreApp;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.$x;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
@@ -9,11 +10,11 @@ import com.codeborne.selenide.SelenideElement;
 public class BookStorePage {
 
   public SelenideElement loginPageElement(){
-    return $$("#item-0").get(5).as("Страница Login");
+    return $x("//span[.='Login']").as("Страница Login");
   }
 
   public SelenideElement profilePageElement(){
-    return $$("#item-3").get(4).as("Страница Profile");
+    return $x("//span[.='Profile']").as("Страница Profile");
   }
 
   public SelenideElement sizeRows() {

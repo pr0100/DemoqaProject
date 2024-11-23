@@ -2,6 +2,7 @@ package ui.pages.mainPage;
 
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 import com.codeborne.selenide.SelenideElement;
 
@@ -12,11 +13,11 @@ public class MainPage {
   }
 
   public SelenideElement formsLink(){
-    return $("div.home-body > div > div:nth-child(2)").as("Страница Forms");
+    return $x("//h5[.='Forms']").as("Страница Forms");
   }
 
   public SelenideElement bookStoreLink(){
-    return $("div.home-body > div > div:nth-child(6)").as("Страница Book Store Application");
+    return $x("//h5[.='Book Store Application']").as("Страница Book Store Application");
   }
 
 }

@@ -3,13 +3,13 @@ package api.utils.spec;
 import static io.restassured.RestAssured.with;
 import static io.restassured.http.ContentType.JSON;
 
-import helpers.auth.AuthApi;
+import helpers.auth.Authorization;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.specification.RequestSpecification;
 
 public class Specification {
 
-  static AuthApi authApi = new AuthApi();
+  static Authorization authorization = new Authorization();
 
   private static final AllureRestAssured allureRestAssured = new AllureRestAssured()
           .setRequestTemplate("custom-http-request.ftl")
@@ -21,6 +21,6 @@ public class Specification {
 
   public static RequestSpecification authSpecification = with()
       .filter(allureRestAssured)
-      .auth().oauth2(authApi.getToken())
+      .auth().oauth2(authorization.getToken())
       .contentType(JSON);
 }

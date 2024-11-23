@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 @Epic("ui")
 @Feature("Тесты для вкладки Practice Form")
-@DisplayName("Тесты для вкладки Practice Form")
 @Tag("ui")
 public class PracticeFormTests extends BaseTest {
 

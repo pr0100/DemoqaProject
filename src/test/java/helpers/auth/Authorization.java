@@ -1,37 +1,32 @@
 package helpers.auth;
 
-import static helpers.config.Endpoints.login;
+import static api.utils.templates.FillingModels.getParams;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static helpers.config.Endpoints.LOGIN;
 import static helpers.config.Config.cfg;
 
 import api.utils.wrapper.RestWrapper;
-import api.utils.models.UserAccountModel;
+
 import static api.utils.spec.Specification.requestSpecification;
 
-import io.qameta.allure.Step;
 import java.util.HashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Cookie;
 
-public class AuthApi {
+public class Authorization {
 
   protected static final Logger LOGGER = LogManager.getLogger();
 
   private HashMap<String, String> authParams;
   private boolean isAuthenticated = false;
+  //public String token = getToken();
 
-  public static UserAccountModel getParams(String userName, String password) {
-    UserAccountModel regParams = new UserAccountModel();
-    regParams.setUserName(userName);
-    regParams.setPassword(password);
-    return regParams;
-  }
-
-  @Step("Авторизация")
   private void authenticate() {
     if (!isAuthenticated) {
       LOGGER.info("Not Authenticated");
       RestWrapper postLogin = new RestWrapper()
-              .post(requestSpecification, login, getParams(cfg.getUserName(), cfg.getPassword()));
+          .post(requestSpecification, LOGIN, getParams(cfg.getUserName(), cfg.getPassword()));
       authParams = new HashMap<>();
       authParams.put("userId", postLogin.getBodyFieldString("userId"));
       authParams.put("token", postLogin.getBodyFieldString("token"));
@@ -57,5 +52,10 @@ public class AuthApi {
     authenticate();
     LOGGER.info("Got expires");
     return authParams.get("expires");
+  }
+
+  public void addCookie(String key, String value) {
+    Cookie cookie =  new Cookie(key, value);
+    getWebDriver().manage().addCookie(cookie);
   }
 }

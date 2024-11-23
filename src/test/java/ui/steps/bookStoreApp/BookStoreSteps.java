@@ -11,7 +11,7 @@ import java.time.Duration;
 
 public class BookStoreSteps {
 
-  protected static final Logger LOGGER = LogManager.getLogger();
+  protected final Logger LOGGER = LogManager.getLogger();
   BookStorePage bookStorePage = new BookStorePage();
 
   @Step("Перейти на страницу Login")

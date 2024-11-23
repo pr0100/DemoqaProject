@@ -74,7 +74,7 @@ public class PracticeFormSteps {
     practiceFormPage.modalTitle().shouldHave(text("Thanks for submitting the form"));
   }
 
-  @Step("Заполнить минимальное количество полей на форме и нажать кнопку Submit")
+  @Step("Заполнить форму минимальными данными и отправить")
   public void fillMinAuthDataField(String firstName, String lastName, String mobileNumber){
     fillInTheFirstNameField(firstName);
     fillInTheLastNameField(lastName);
@@ -82,6 +82,5 @@ public class PracticeFormSteps {
     fillInTheMobileField(mobileNumber);
     clickSubmit();
     LOGGER.info("All required field filled");
-
   }
 }

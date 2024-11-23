@@ -2,14 +2,12 @@ package api.steps;
 
 import static api.utils.spec.Specification.requestSpecification;
 import static helpers.config.Config.cfg;
-import static helpers.config.Endpoints.book;
 
 
 import api.utils.wrapper.RestWrapper;
-import helpers.auth.AuthApi;
-import api.utils.models.AddBookRequestModel;
-import api.utils.models.DeleteBookModel;
+import helpers.auth.Authorization;
 import api.utils.models.IsbnModel;
+import helpers.config.Endpoints;
 import helpers.config.TestData;
 import io.qameta.allure.Step;
 
@@ -20,31 +18,16 @@ import org.apache.logging.log4j.Logger;
 
 public class BookStoreApiSteps {
 
-  AuthApi authApi = new AuthApi();
+  Authorization authorization = new Authorization();
   RestWrapper restWrapper = new RestWrapper();
-  protected static final Logger LOGGER = LogManager.getLogger();
-
-
-  public AddBookRequestModel fillRegParamForAddBookRequest() {
-    AddBookRequestModel regParams = new AddBookRequestModel();
-    regParams.setUserId(authApi.getUserId());
-    regParams.setCollectionOfIsbns(getAvailableIsbn());
-    return regParams;
-  }
-
-  public DeleteBookModel fillRegParamForDeleteBookRequest(String isbn, String user) {
-    DeleteBookModel regParams = new DeleteBookModel();
-    regParams.setIsbn(isbn);
-    regParams.setUserId(user);
-    return regParams;
-  }
+  protected final Logger LOGGER = LogManager.getLogger();
 
   @Step("Получить доступный isbn книги")
-  private List<IsbnModel> getAvailableIsbn() {
+  public List<IsbnModel> getAvailableIsbn() {
     LOGGER.info("Got available isbn");
     List<IsbnModel> isbnList = new ArrayList<>();
     IsbnModel isbn = new IsbnModel();
-    isbn.setIsbn(restWrapper.get(requestSpecification, book)
+    isbn.setIsbn(restWrapper.get(requestSpecification, Endpoints.BOOK)
         .getBodyFieldString("books[" + TestData.getElemArrayBooks() + "].isbn"));
     isbnList.add(isbn);
     return isbnList;
@@ -59,7 +42,7 @@ public class BookStoreApiSteps {
   @Step("Задать путь для пользователя")
   public String setPathForUserID(){
     LOGGER.info("Path assigned for userID");
-    return "?UserId=" + authApi.getUserId();
+    return "?UserId=" + authorization.getUserId();
   }
 
   @Step("Задать путь для поиска несуществующей книги")

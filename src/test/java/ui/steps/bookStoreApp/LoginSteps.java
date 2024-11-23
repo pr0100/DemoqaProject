@@ -1,6 +1,6 @@
 package ui.steps.bookStoreApp;
 
-import static helpers.config.Endpoints.loginUrl;
+import static helpers.config.Endpoints.LOGIN_URL;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.webdriver;
 import static com.codeborne.selenide.WebDriverConditions.url;
@@ -18,8 +18,7 @@ public class LoginSteps {
   MainPageSteps mainPageSteps = new MainPageSteps();
   BookStoreSteps bookStoreSteps = new BookStoreSteps();
   LoginPage loginPage = new LoginPage();
-  protected static final Logger LOGGER = LogManager.getLogger();
-
+  protected final Logger LOGGER = LogManager.getLogger();
 
   @Step("Перейти на страницу Login")
   public void goToLoginPage(){
@@ -72,7 +71,7 @@ public class LoginSteps {
 
   @Step("Проверить текущий URL")
   public void checkCurrentURL(){
-    webdriver().shouldHave(url(loginUrl));
+    webdriver().shouldHave(url(LOGIN_URL));
     LOGGER.info("URL correct");
   }
 
