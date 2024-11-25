@@ -8,7 +8,7 @@ import helpers.auth.Authorization;
 
 public class FillingModels {
 
-  Authorization authorization = new Authorization();
+  Authorization authorization = Authorization.getInstance();
   BookStoreApiSteps bookStoreApiSteps = new BookStoreApiSteps();
 
   public static UserAccountModel getParams(String userName, String password) {

@@ -44,6 +44,7 @@ public class RestWrapper {
     public RestWrapper get(RequestSpecification spec, String path) {
         this.response = given(spec)
                 .when()
+                .queryParam("")
                 .get(path)
                 .then()
                 .extract().response();

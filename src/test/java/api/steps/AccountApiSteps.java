@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 
 public class AccountApiSteps {
 
-  Authorization authorization = new Authorization();
+  Authorization authorization = Authorization.getInstance();
   protected final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 
   @Step("Получить код книги у пользователя")
@@ -19,7 +19,7 @@ public class AccountApiSteps {
     try {
       LOGGER.info("Got book from account");
       return new RestWrapper()
-              .get(authSpecification, ACCOUNT_USER + authorization.getUserId())
+              .get(authSpecification(), ACCOUNT_USER + authorization.getUserId())
               .getBodyFieldStringList("books.isbn").get(0);
     } catch (Exception e) {
       LOGGER.error("Receive error book from account");

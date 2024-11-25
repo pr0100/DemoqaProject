@@ -26,7 +26,7 @@ import static org.hamcrest.Matchers.*;
 public class BookStoreTests extends ApiBase {
 
   BookStoreApiSteps bookStoreApiSteps = new BookStoreApiSteps();
-  Authorization authorization = new Authorization();
+  Authorization authorization = Authorization.getInstance();
   AccountApiSteps accountApiSteps = new AccountApiSteps();
   FillingModels fillingModels = new FillingModels();
 
@@ -34,7 +34,7 @@ public class BookStoreTests extends ApiBase {
   @DisplayName("Удаление всех книг у пользователя")
   void deleteAllBooksFromAcc() {
     new RestWrapper()
-            .delete(authSpecification, "", BOOK + bookStoreApiSteps.setPathForUserID())
+            .delete(authSpecification(), "", BOOK + bookStoreApiSteps.setPathForUserID())
             .shouldHaveStatusCode(204);
   }
 
@@ -42,7 +42,7 @@ public class BookStoreTests extends ApiBase {
   @DisplayName("Добавление книги пользователю")
   void addBookToAcc() {
     new RestWrapper()
-            .post(authSpecification, BOOK, fillingModels.fillRegParamForAddBookRequest())
+            .post(authSpecification(), BOOK, fillingModels.fillRegParamForAddBookRequest())
             .shouldHaveStatusCode(201)
             .shouldHaveJsonPath("books", not(emptyOrNullString()));
   }
@@ -51,7 +51,7 @@ public class BookStoreTests extends ApiBase {
   @DisplayName("Поиск всех книг")
   void successfulBooksSearch() {
     new RestWrapper()
-        .get(requestSpecification, BOOK)
+        .get(requestSpecification(), BOOK)
         .shouldHaveStatusCode(200)
         .shouldHaveJsonPath("books.isbn[1]", containsString("9781449331818"));
   }
@@ -60,7 +60,7 @@ public class BookStoreTests extends ApiBase {
   @DisplayName("Успешный поиск книги с определенным ISBN")
   void successfulBookSearch() {
     new RestWrapper()
-        .get(requestSpecification, BOOK_ISBN + bookStoreApiSteps.setPathForISBNSearch())
+        .get(requestSpecification(), BOOK_ISBN + bookStoreApiSteps.setPathForISBNSearch())
         .shouldHaveStatusCode(200)
         .shouldHaveJsonPath("isbn", containsString(cfg.getAvailableIsbn()));
   }
@@ -69,7 +69,7 @@ public class BookStoreTests extends ApiBase {
   @DisplayName("Поиск книги, которой нет в Books Store")
   void bookSearchNotFound() {
     new RestWrapper()
-            .get(requestSpecification, BOOK_ISBN + bookStoreApiSteps.setPathForWrongISBNSearch())
+            .get(requestSpecification(), BOOK_ISBN + bookStoreApiSteps.setPathForWrongISBNSearch())
             .shouldHaveStatusCode(400)
             .shouldHaveJsonPath("message", containsString("ISBN supplied is not available in Books Collection!"));
   }
@@ -78,7 +78,7 @@ public class BookStoreTests extends ApiBase {
   @DisplayName("Удаление книги у пользователя")
   void deleteBookFromAccount() {
     new RestWrapper()
-            .delete(authSpecification,
+            .delete(authSpecification(),
                 fillingModels.fillRegParamForDeleteBookRequest
                             (accountApiSteps.getIsbnBookFromAccount(), authorization.getUserId()),
                 BOOK_ISBN)
@@ -89,7 +89,7 @@ public class BookStoreTests extends ApiBase {
   @DisplayName("Удаление несуществующей книги у пользователя")
   void deleteNotAvailableBookFromAccount() {
     new RestWrapper()
-            .delete(authSpecification,
+            .delete(authSpecification(),
                 fillingModels.fillRegParamForDeleteBookRequest(TestData.getWrongIsbn(), authorization.getUserId()),
                 BOOK_ISBN)
             .shouldHaveStatusCode(400)
@@ -101,7 +101,7 @@ public class BookStoreTests extends ApiBase {
   @DisplayName("Удаление книги без авторизации")
   void deleteBookFromAccountNotAuth() {
     new RestWrapper()
-            .delete(requestSpecification, "", BOOK_ISBN)
+            .delete(requestSpecification(), "", BOOK_ISBN)
             .shouldHaveStatusCode(401)
             .shouldHaveJsonPath("message",
                     containsString("User not authorized!"));

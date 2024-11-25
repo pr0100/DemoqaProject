@@ -9,18 +9,25 @@ import io.restassured.specification.RequestSpecification;
 
 public class Specification {
 
-  static Authorization authorization = new Authorization();
+  static Authorization authorization = Authorization.getInstance();
 
   private static final AllureRestAssured allureRestAssured = new AllureRestAssured()
-          .setRequestTemplate("custom-http-request.ftl")
-          .setResponseTemplate("custom-http-response.ftl");
+      .setRequestTemplate("custom-http-request.ftl")
+      .setResponseTemplate("custom-http-response.ftl");
 
-  public static RequestSpecification requestSpecification = with()
-      .filter(allureRestAssured)
-      .contentType(JSON);
+  private static RequestSpecification baseSpecification() {
+    return with()
+        .filter(allureRestAssured)
+        .contentType(JSON);
+  }
 
-  public static RequestSpecification authSpecification = with()
-      .filter(allureRestAssured)
-      .auth().oauth2(authorization.getToken())
-      .contentType(JSON);
+  public static RequestSpecification requestSpecification() {
+    return baseSpecification();
+  }
+
+  public static RequestSpecification authSpecification() {
+    return baseSpecification()
+        .auth().oauth2(authorization.getToken());
+  }
 }
+

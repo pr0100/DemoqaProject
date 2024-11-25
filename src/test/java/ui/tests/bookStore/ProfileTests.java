@@ -7,7 +7,6 @@ import static helpers.config.Endpoints.BOOK;
 
 import api.utils.templates.FillingModels;
 import api.utils.wrapper.RestWrapper;
-import org.junit.jupiter.api.Disabled;
 import ui.steps.bookStoreApp.LoginSteps;
 import ui.steps.bookStoreApp.ProfileSteps;
 import helpers.utils.BaseTest;
@@ -61,7 +60,7 @@ public class ProfileTests extends BaseTest {
 
   @Test
   @DisplayName("Удаление всех книг у пользователя")
-  void deleteAllBooksfromAccount() {
+  void deleteAllBooksFromAccount() {
     profileSteps.goToProfilePage();
     profileSteps.addAuthCookie();
     profileSteps.deleteAllRecords();
@@ -72,7 +71,7 @@ public class ProfileTests extends BaseTest {
   @DisplayName("Добавление книги API и удаление UI")
   void addAPIDeleteUI() {
     new RestWrapper()
-        .post(authSpecification,
+        .post(authSpecification(),
             BOOK,
             fillingModels.fillRegParamForAddBookRequest())
         .shouldHaveStatusCode(201);

@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
 
 public class BookStoreApiSteps {
 
-  Authorization authorization = new Authorization();
+  Authorization authorization = Authorization.getInstance();
   RestWrapper restWrapper = new RestWrapper();
   protected final Logger LOGGER = LogManager.getLogger();
 
@@ -27,7 +27,7 @@ public class BookStoreApiSteps {
     LOGGER.info("Got available isbn");
     List<IsbnModel> isbnList = new ArrayList<>();
     IsbnModel isbn = new IsbnModel();
-    isbn.setIsbn(restWrapper.get(requestSpecification, Endpoints.BOOK)
+    isbn.setIsbn(restWrapper.get(requestSpecification(), Endpoints.BOOK)
         .getBodyFieldString("books[" + TestData.getElemArrayBooks() + "].isbn"));
     isbnList.add(isbn);
     return isbnList;

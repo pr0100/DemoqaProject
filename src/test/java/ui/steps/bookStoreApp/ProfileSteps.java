@@ -1,12 +1,10 @@
 package ui.steps.bookStoreApp;
 
-import static com.codeborne.selenide.Selenide.$;
 import static helpers.config.Endpoints.PROFILE_URL;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.webdriver;
 import static com.codeborne.selenide.WebDriverConditions.url;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static io.restassured.RestAssured.given;
 
 import helpers.auth.Authorization;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +19,7 @@ public class ProfileSteps {
   MainPageSteps mainPageSteps = new MainPageSteps();
   BookStoreSteps bookStoreSteps = new BookStoreSteps();
   ProfilePage profilePage = new ProfilePage();
-  Authorization authorization = new Authorization();
+  Authorization authorization = Authorization.getInstance();
   protected static final Logger LOGGER = LogManager.getLogger();
 
   @Step("Перейти на страницу Profile")

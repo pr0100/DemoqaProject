@@ -17,16 +17,24 @@ import org.openqa.selenium.Cookie;
 public class Authorization {
 
   protected static final Logger LOGGER = LogManager.getLogger();
-
+  private static Authorization instance;
   private HashMap<String, String> authParams;
   private boolean isAuthenticated = false;
-  //public String token = getToken();
+
+  private Authorization() {}
+
+  public static synchronized Authorization getInstance() {
+    if (instance == null) {
+      instance = new Authorization();
+    }
+    return instance;
+  }
 
   private void authenticate() {
     if (!isAuthenticated) {
       LOGGER.info("Not Authenticated");
       RestWrapper postLogin = new RestWrapper()
-          .post(requestSpecification, LOGIN, getParams(cfg.getUserName(), cfg.getPassword()));
+          .post(requestSpecification(), LOGIN, getParams(cfg.getUserName(), cfg.getPassword()));
       authParams = new HashMap<>();
       authParams.put("userId", postLogin.getBodyFieldString("userId"));
       authParams.put("token", postLogin.getBodyFieldString("token"));
