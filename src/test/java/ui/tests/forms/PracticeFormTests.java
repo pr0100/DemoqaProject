@@ -2,6 +2,8 @@ package ui.tests.forms;
 
 
 import helpers.config.TestData;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import ui.steps.forms.PracticeFormSteps;
 import helpers.utils.BaseTest;
 import io.qameta.allure.Epic;
@@ -18,6 +20,7 @@ public class PracticeFormTests extends BaseTest {
   PracticeFormSteps practiceFormSteps = new PracticeFormSteps();
 
   @Test
+  @Severity(SeverityLevel.BLOCKER)
   @DisplayName("Заполнение формы с минимальным количеством полей")
   void successRegistrationWithMinFields() {
     practiceFormSteps.goToPracticeFormPage();

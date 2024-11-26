@@ -1,5 +1,7 @@
 package ui.tests.bookStore;
 
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import ui.steps.bookStoreApp.BookStoreSteps;
 import ui.steps.mainPage.MainPageSteps;
 import helpers.utils.BaseTest;
@@ -18,6 +20,7 @@ public class BookStoreTests extends BaseTest {
   BookStoreSteps bookStoreSteps = new BookStoreSteps();
 
   @Test
+  @Severity(SeverityLevel.CRITICAL)
   @DisplayName("Количество книг на странице")
   void changeRows() {
     mainPageSteps.goToBookStorePage();

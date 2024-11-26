@@ -33,10 +33,16 @@ public class BookStoreApiSteps {
     return isbnList;
   }
 
+  @Step
+  public String getFirstIsbn() {
+    return restWrapper.get(requestSpecification(), Endpoints.BOOK)
+        .getBodyFieldString("books[0].isbn");
+  }
+
   @Step("Задать путь для поиска определенной книги")
   public String setPathForISBNSearch() {
     LOGGER.info("Path assigned for isbn search");
-    return "?ISBN=" + cfg.getAvailableIsbn();
+    return "?ISBN=" + getFirstIsbn();
   }
 
   @Step("Задать путь для пользователя")

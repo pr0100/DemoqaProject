@@ -7,6 +7,8 @@ import helpers.utils.ApiBase;
 import helpers.config.TestData;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -28,6 +30,7 @@ public class AccountTests extends ApiBase {
   Authorization authorization = Authorization.getInstance();
 
   @Test
+  @Severity(SeverityLevel.CRITICAL)
   @DisplayName("Информация об аккаунте")
   void getAccountData() {
     new RestWrapper()
@@ -37,6 +40,7 @@ public class AccountTests extends ApiBase {
   }
 
   @Test
+  @Severity(SeverityLevel.BLOCKER)
   @DisplayName("Успешная регистрация пользователя")
   void successfulRegistrationUser() {
     RestWrapper answer = new RestWrapper()

@@ -7,6 +7,8 @@ import static helpers.config.Endpoints.BOOK;
 
 import api.utils.templates.FillingModels;
 import api.utils.wrapper.RestWrapper;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import ui.steps.bookStoreApp.LoginSteps;
 import ui.steps.bookStoreApp.ProfileSteps;
 import helpers.utils.BaseTest;
@@ -26,6 +28,7 @@ public class ProfileTests extends BaseTest {
   FillingModels fillingModels = new FillingModels();
 
   @Test
+  @Severity(SeverityLevel.NORMAL)
   @DisplayName("Сообщение для неавторизованных пользователей")
   void profilePage() {
     profileSteps.goToProfilePage();
@@ -33,6 +36,7 @@ public class ProfileTests extends BaseTest {
   }
 
   @Test
+  @Severity(SeverityLevel.CRITICAL)
   @DisplayName("Деавторизация")
   void logout() {
     profileSteps.goToProfilePage();
@@ -42,6 +46,7 @@ public class ProfileTests extends BaseTest {
   }
 
   @Test
+  @Severity(SeverityLevel.NORMAL)
   @DisplayName("Имя пользователя")
   void userName() {
     profileSteps.goToProfilePage();
@@ -50,6 +55,7 @@ public class ProfileTests extends BaseTest {
   }
 
   @Test
+  @Severity(SeverityLevel.MINOR)
   @DisplayName("Поиск книги, которой нет у пользователя")
   void unsuccessfulSearchBookOnAccount() {
     profileSteps.goToProfilePage();
@@ -59,6 +65,7 @@ public class ProfileTests extends BaseTest {
   }
 
   @Test
+  @Severity(SeverityLevel.BLOCKER)
   @DisplayName("Удаление всех книг у пользователя")
   void deleteAllBooksFromAccount() {
     profileSteps.goToProfilePage();
@@ -68,6 +75,7 @@ public class ProfileTests extends BaseTest {
   }
 
   @Test
+  @Severity(SeverityLevel.CRITICAL)
   @DisplayName("Добавление книги API и удаление UI")
   void addAPIDeleteUI() {
     new RestWrapper()

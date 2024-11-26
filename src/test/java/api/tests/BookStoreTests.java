@@ -9,6 +9,8 @@ import helpers.utils.ApiBase;
 import helpers.config.TestData;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -31,6 +33,7 @@ public class BookStoreTests extends ApiBase {
   FillingModels fillingModels = new FillingModels();
 
   @Test
+  @Severity(SeverityLevel.BLOCKER)
   @DisplayName("Удаление всех книг у пользователя")
   void deleteAllBooksFromAcc() {
     new RestWrapper()
@@ -39,6 +42,7 @@ public class BookStoreTests extends ApiBase {
   }
 
   @Test
+  @Severity(SeverityLevel.CRITICAL)
   @DisplayName("Добавление книги пользователю")
   void addBookToAcc() {
     new RestWrapper()
@@ -48,6 +52,7 @@ public class BookStoreTests extends ApiBase {
   }
 
   @Test
+  @Severity(SeverityLevel.NORMAL)
   @DisplayName("Поиск всех книг")
   void successfulBooksSearch() {
     new RestWrapper()
@@ -57,15 +62,17 @@ public class BookStoreTests extends ApiBase {
   }
 
   @Test
+  @Severity(SeverityLevel.NORMAL)
   @DisplayName("Успешный поиск книги с определенным ISBN")
   void successfulBookSearch() {
     new RestWrapper()
         .get(requestSpecification(), BOOK_ISBN + bookStoreApiSteps.setPathForISBNSearch())
         .shouldHaveStatusCode(200)
-        .shouldHaveJsonPath("isbn", containsString(cfg.getAvailableIsbn()));
+        .shouldHaveJsonPath("isbn", containsString(bookStoreApiSteps.getFirstIsbn()));
   }
 
   @Test
+  @Severity(SeverityLevel.MINOR)
   @DisplayName("Поиск книги, которой нет в Books Store")
   void bookSearchNotFound() {
     new RestWrapper()
@@ -75,6 +82,7 @@ public class BookStoreTests extends ApiBase {
   }
 
   @Test
+  @Severity(SeverityLevel.NORMAL)
   @DisplayName("Удаление книги у пользователя")
   void deleteBookFromAccount() {
     new RestWrapper()
@@ -86,6 +94,7 @@ public class BookStoreTests extends ApiBase {
   }
 
   @Test
+  @Severity(SeverityLevel.NORMAL)
   @DisplayName("Удаление несуществующей книги у пользователя")
   void deleteNotAvailableBookFromAccount() {
     new RestWrapper()
@@ -98,6 +107,7 @@ public class BookStoreTests extends ApiBase {
   }
 
   @Test
+  @Severity(SeverityLevel.CRITICAL)
   @DisplayName("Удаление книги без авторизации")
   void deleteBookFromAccountNotAuth() {
     new RestWrapper()

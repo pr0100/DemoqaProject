@@ -5,6 +5,8 @@ import static helpers.config.Config.cfg;
 
 
 import helpers.config.TestData;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import ui.steps.bookStoreApp.LoginSteps;
 import ui.steps.bookStoreApp.ProfileSteps;
 import ui.steps.bookStoreApp.RegisterSteps;
@@ -25,6 +27,7 @@ public class LoginTests extends BaseTest {
   RegisterSteps registerSteps = new RegisterSteps();
 
   @Test
+  @Severity(SeverityLevel.CRITICAL)
   @DisplayName("Авторизация без данных")
   void loginWithoutData() {
     loginSteps.goToLoginPage();
@@ -35,6 +38,7 @@ public class LoginTests extends BaseTest {
   }
 
   @Test
+  @Severity(SeverityLevel.BLOCKER)
   @DisplayName("Успешная авторизация")
   void successfulLogin() {
     loginSteps.goToLoginPage();
@@ -43,6 +47,7 @@ public class LoginTests extends BaseTest {
   }
 
   @Test
+  @Severity(SeverityLevel.CRITICAL)
   @DisplayName("Неуспешная авторизация")
   void unsuccessfulLogin() {
     loginSteps.goToLoginPage();
@@ -52,6 +57,7 @@ public class LoginTests extends BaseTest {
   }
 
   @Test
+  @Severity(SeverityLevel.BLOCKER)
   @DisplayName("Переход на страницу регистрации при нажатии кнопки New User")
   void newUserBtnToRegisterPage() {
     loginSteps.goToLoginPage();
