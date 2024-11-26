@@ -17,16 +17,13 @@ import org.openqa.selenium.Cookie;
 public class Authorization {
 
   protected static final Logger LOGGER = LogManager.getLogger();
-  private static Authorization instance;
+  private static final Authorization instance = new Authorization();
   private HashMap<String, String> authParams;
   private boolean isAuthenticated = false;
 
   private Authorization() {}
 
   public static synchronized Authorization getInstance() {
-    if (instance == null) {
-      instance = new Authorization();
-    }
     return instance;
   }
 
