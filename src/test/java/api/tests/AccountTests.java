@@ -1,10 +1,9 @@
 package api.tests;
 
-import api.utils.templates.FillingModels;
+import api.steps.ApiSteps;
 import api.utils.wrapper.RestWrapper;
 import helpers.auth.Authorization;
 import helpers.utils.ApiBase;
-import helpers.config.TestData;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
@@ -27,14 +26,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Tag("api")
 public class AccountTests extends ApiBase {
 
-  Authorization authorization = Authorization.getInstance();
+  ApiSteps apiSteps = new ApiSteps();
 
   @Test
   @Severity(SeverityLevel.CRITICAL)
   @DisplayName("Информация об аккаунте")
   void getAccountData() {
-    new RestWrapper()
-            .get(authSpecification(), ACCOUNT_USER + authorization.getUserId())
+    apiSteps.getInfo(authSpecification(), "",
+            ACCOUNT_USER.replace("{UUID}", Authorization.getInstance().getUserId()))
             .shouldHaveStatusCode(200)
             .shouldHaveJsonPath("username", containsString(cfg.getUserName()));
   }
@@ -43,13 +42,10 @@ public class AccountTests extends ApiBase {
   @Severity(SeverityLevel.BLOCKER)
   @DisplayName("Успешная регистрация пользователя")
   void successfulRegistrationUser() {
-    RestWrapper answer = new RestWrapper()
-            .post(authSpecification(),
-                ACCOUNT_USER, FillingModels.getParams(TestData.getSuccessfulUserName(), TestData.getSuccessfulPasswd()));
-    answer.shouldHaveStatusCode(201)
-            .shouldHaveJsonPath("userID", not(emptyOrNullString()));
+    RestWrapper answer = apiSteps.addNewAccount();
+    answer
+        .shouldHaveStatusCode(201)
+        .shouldHaveJsonPath("userID", not(emptyOrNullString()));
     assertTrue(answer.getBodyFieldStringList("books").isEmpty());
   }
-
-
 }

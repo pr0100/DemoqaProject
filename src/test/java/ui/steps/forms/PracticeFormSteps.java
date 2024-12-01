@@ -33,11 +33,6 @@ public class PracticeFormSteps {
     practiceFormPage.lastNameElement().sendKeys(name);
   }
 
-  @Step("Заполнить поле 'Email'")
-  public void fillInTheEmailField(String email) {
-    practiceFormPage.emailElement().sendKeys(email);
-  }
-
   @Step("Заполнить поле 'Gender Male'")
   public void chooseTheGenderField() {
     executeJavaScript("arguments[0].click();", practiceFormPage.genderMaleElement());
@@ -46,22 +41,6 @@ public class PracticeFormSteps {
   @Step("Заполнить поле 'Mobile'")
   public void fillInTheMobileField(String phone) {
     practiceFormPage.mobileNumberElement().sendKeys(phone);
-  }
-
-  @Step("Заполнить поле 'Date of Birth'")
-  public void fillInTheDateOfBirthField(String date) {
-    practiceFormPage.dateBirthElement().clear();
-    practiceFormPage.dateBirthElement().setValue(date);
-  }
-
-  @Step("Заполнить поле 'Hobbies'")
-  public void fillInTheHobbieField() {
-    practiceFormPage.hobbiesSportElement().click();
-  }
-
-  @Step("Заполнить поле 'Current Address'")
-  public void fillInTheAddressField(String address) {
-    practiceFormPage.addressElement().sendKeys(address);
   }
 
   @Step("Нажать кнопку 'Submit'")

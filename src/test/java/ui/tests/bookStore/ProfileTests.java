@@ -1,12 +1,9 @@
 package ui.tests.bookStore;
 
 
-import static api.utils.spec.Specification.authSpecification;
 import static helpers.config.Config.cfg;
-import static helpers.config.Endpoints.BOOK;
 
-import api.utils.templates.FillingModels;
-import api.utils.wrapper.RestWrapper;
+import api.steps.ApiSteps;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import ui.steps.bookStoreApp.LoginSteps;
@@ -25,7 +22,7 @@ public class ProfileTests extends BaseTest {
 
   ProfileSteps profileSteps = new ProfileSteps();
   LoginSteps loginSteps = new LoginSteps();
-  FillingModels fillingModels = new FillingModels();
+  ApiSteps apiSteps = new ApiSteps();
 
   @Test
   @Severity(SeverityLevel.NORMAL)
@@ -39,8 +36,7 @@ public class ProfileTests extends BaseTest {
   @Severity(SeverityLevel.CRITICAL)
   @DisplayName("Деавторизация")
   void logout() {
-    profileSteps.goToProfilePage();
-    profileSteps.addAuthCookie();
+    profileSteps.goToProfilePageAndLogin();
     profileSteps.logOut();
     loginSteps.checkCurrentURL();
   }
@@ -49,8 +45,7 @@ public class ProfileTests extends BaseTest {
   @Severity(SeverityLevel.NORMAL)
   @DisplayName("Имя пользователя")
   void userName() {
-    profileSteps.goToProfilePage();
-    profileSteps.addAuthCookie();
+    profileSteps.goToProfilePageAndLogin();
     profileSteps.checkUserName(cfg.getUserName());
   }
 
@@ -58,8 +53,7 @@ public class ProfileTests extends BaseTest {
   @Severity(SeverityLevel.MINOR)
   @DisplayName("Поиск книги, которой нет у пользователя")
   void unsuccessfulSearchBookOnAccount() {
-    profileSteps.goToProfilePage();
-    profileSteps.addAuthCookie();
+    profileSteps.goToProfilePageAndLogin();
     profileSteps.fillSearchBookInput("книга");
     profileSteps.checkTableLabel();
   }
@@ -68,8 +62,7 @@ public class ProfileTests extends BaseTest {
   @Severity(SeverityLevel.BLOCKER)
   @DisplayName("Удаление всех книг у пользователя")
   void deleteAllBooksFromAccount() {
-    profileSteps.goToProfilePage();
-    profileSteps.addAuthCookie();
+    profileSteps.goToProfilePageAndLogin();
     profileSteps.deleteAllRecords();
     profileSteps.checkTableLabel();
   }
@@ -77,15 +70,9 @@ public class ProfileTests extends BaseTest {
   @Test
   @Severity(SeverityLevel.CRITICAL)
   @DisplayName("Добавление книги API и удаление UI")
-  void addAPIDeleteUI() {
-    new RestWrapper()
-        .post(authSpecification(),
-            BOOK,
-            fillingModels.fillRegParamForAddBookRequest())
-        .shouldHaveStatusCode(201);
-
-    profileSteps.goToProfilePage();
-    profileSteps.addAuthCookie();
+  void addApiDeleteUi() {
+    apiSteps.addBook().shouldHaveStatusCode(201);
+    profileSteps.goToProfilePageAndLogin();
     profileSteps.deleteRecord();
     profileSteps.checkTableLabel();
     profileSteps.logOut();

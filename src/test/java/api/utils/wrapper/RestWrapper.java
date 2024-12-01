@@ -12,39 +12,42 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 
 
-
 public class RestWrapper {
 
     private Response response;
-    protected final Logger LOGGER = LogManager.getLogger();
+    protected static final Logger LOGGER = LogManager.getLogger();
 
     public RestWrapper post(RequestSpecification spec, String endpoint, Object body) {
         this.response = given(spec)
+                .log().uri()
                 .body(body)
                 .when()
                 .post(endpoint)
                 .then()
-                .extract()
-                .response();
+                .log().body()
+                .extract().response();
         LOGGER.info("post request done");
         return this;
     }
 
     public RestWrapper delete(RequestSpecification spec, Object body, String path){
         this.response = given(spec)
+                .log().uri()
                 .body(body)
                 .when()
                 .delete(path)
                 .then()
+                .log().body()
                 .extract().response();
         LOGGER.info("delete request done");
         return this;
     }
 
-    public RestWrapper get(RequestSpecification spec, String path) {
+    public RestWrapper get(RequestSpecification spec, String params, String path) {
         this.response = given(spec)
+                .log().uri()
+                .queryParam("ISBN", params)
                 .when()
-                .queryParam("")
                 .get(path)
                 .then()
                 .extract().response();

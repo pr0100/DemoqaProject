@@ -18,7 +18,7 @@ public class LoginSteps {
   MainPageSteps mainPageSteps = new MainPageSteps();
   BookStoreSteps bookStoreSteps = new BookStoreSteps();
   LoginPage loginPage = new LoginPage();
-  protected final Logger LOGGER = LogManager.getLogger();
+  protected static final Logger LOGGER = LogManager.getLogger();
 
   @Step("Перейти на страницу Login")
   public void goToLoginPage(){
@@ -28,16 +28,6 @@ public class LoginSteps {
     LOGGER.info("Login page opened");
   }
 
-  @Step("Заполнить поле Username")
-  public void fillTheUserNameField(String name){
-    loginPage.userNameElement().sendKeys(name);
-  }
-
-  @Step("Заполнить поле Password")
-  public void fillThePasswordField(String password){
-    loginPage.passwordElement().sendKeys(password);
-  }
-
   @Step("Нажать кнопку Login")
   public void clickLoginBtnField(){
     loginPage.loginBtnElement().scrollTo().click();
@@ -45,8 +35,8 @@ public class LoginSteps {
 
   @Step("Заполнить данные для авторизации и нажать кнопку Login")
   public void fillAuthDataField(String name, String password){
-    fillTheUserNameField(name);
-    fillThePasswordField(password);
+    loginPage.userNameElement().sendKeys(name);
+    loginPage.passwordElement().sendKeys(password);
     clickLoginBtnField();
     LOGGER.info("Auth data filled and login btn clicked");
   }

@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 public class RegisterSteps {
 
-  protected final Logger LOGGER = LogManager.getLogger();
+  protected static final Logger LOGGER = LogManager.getLogger();
 
   @Step("Проверить текущий URL")
   public void checkCurrentURL(){

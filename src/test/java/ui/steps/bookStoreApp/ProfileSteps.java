@@ -30,6 +30,13 @@ public class ProfileSteps {
     LOGGER.info("Profile page opened");
   }
 
+  @Step("Перейти на страницу Profile и авторизоваться")
+  public void goToProfilePageAndLogin() {
+    goToProfilePage();
+    addAuthCookie();
+    LOGGER.info("Login success");
+  }
+
   @Step("Проверить текущий URL")
   public void checkCurrentURL(){
     webdriver().shouldHave(url(PROFILE_URL));
@@ -38,16 +45,8 @@ public class ProfileSteps {
 
   @Step("Ввести куки авторизации")
   public void addAuthCookie(){
-    String authCookieUserIDValue = authorization.getUserId();
-    String authCookieTokenValue = authorization.getToken();
-    String authCookieExpiresValue = authorization.getTokenExpires();
-
-    authorization.addCookie("userID", authCookieUserIDValue);
-    authorization.addCookie("token", authCookieTokenValue);
-    authorization.addCookie("expires", authCookieExpiresValue);
-
+    authorization.loginCookie();
     getWebDriver().navigate().refresh();
-
     LOGGER.info("Auth cookie filled");
   }
 

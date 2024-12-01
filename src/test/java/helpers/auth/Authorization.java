@@ -1,10 +1,10 @@
 package helpers.auth;
 
-import static api.utils.templates.FillingModels.getParams;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static helpers.config.Endpoints.LOGIN;
 import static helpers.config.Config.cfg;
 
+import api.utils.templates.UserAccountBody;
 import api.utils.wrapper.RestWrapper;
 
 import static api.utils.spec.Specification.requestSpecification;
@@ -31,7 +31,7 @@ public class Authorization {
     if (!isAuthenticated) {
       LOGGER.info("Not Authenticated");
       RestWrapper postLogin = new RestWrapper()
-          .post(requestSpecification(), LOGIN, getParams(cfg.getUserName(), cfg.getPassword()));
+          .post(requestSpecification(), LOGIN, UserAccountBody.getParams(cfg.getUserName(), cfg.getPassword()));
       authParams = new HashMap<>();
       authParams.put("userId", postLogin.getBodyFieldString("userId"));
       authParams.put("token", postLogin.getBodyFieldString("token"));
@@ -62,5 +62,11 @@ public class Authorization {
   public void addCookie(String key, String value) {
     Cookie cookie =  new Cookie(key, value);
     getWebDriver().manage().addCookie(cookie);
+  }
+
+  public void loginCookie() {
+    addCookie("userID", getUserId());
+    addCookie("token", getToken());
+    addCookie("expires", getTokenExpires());
   }
 }

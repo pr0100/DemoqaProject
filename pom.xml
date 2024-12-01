@@ -19,7 +19,7 @@
     <javafaker.version>1.0.2</javafaker.version>
     <allure-junit5.version>2.29.0</allure-junit5.version>
     <allure-rest-assured.version>2.29.0</allure-rest-assured.version>
-    <allure-selenide.version>2.29.0</allure-selenide.version>
+    <allure-selenide.version>2.24.0</allure-selenide.version>
     <aspectjweaver.version>1.9.22.1</aspectjweaver.version>
     <allure-maven.version>2.15.2</allure-maven.version>
     <selenide.version>6.19.1</selenide.version>
