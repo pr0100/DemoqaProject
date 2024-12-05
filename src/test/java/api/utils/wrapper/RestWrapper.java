@@ -2,6 +2,7 @@ package api.utils.wrapper;
 
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import java.util.HashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hamcrest.Matcher;
@@ -19,36 +20,34 @@ public class RestWrapper {
 
     public RestWrapper post(RequestSpecification spec, String endpoint, Object body) {
         this.response = given(spec)
-                .log().uri()
                 .body(body)
                 .when()
                 .post(endpoint)
                 .then()
-                .log().body()
                 .extract().response();
         LOGGER.info("post request done");
         return this;
     }
 
-    public RestWrapper delete(RequestSpecification spec, Object body, String path){
+    public RestWrapper delete(RequestSpecification spec, HashMap<String,String> params, Object body,
+        String path){
         this.response = given(spec)
-                .log().uri()
+                .queryParams(params)
                 .body(body)
                 .when()
                 .delete(path)
                 .then()
-                .log().body()
                 .extract().response();
         LOGGER.info("delete request done");
         return this;
     }
 
-    public RestWrapper get(RequestSpecification spec, String params, String path) {
+    public RestWrapper get(RequestSpecification spec, HashMap<String, String> params, String path,
+        String userId) {
         this.response = given(spec)
-                .log().uri()
-                .queryParam("ISBN", params)
+                .queryParams(params)
                 .when()
-                .get(path)
+                .get(path, userId)
                 .then()
                 .extract().response();
         LOGGER.info("get request done");

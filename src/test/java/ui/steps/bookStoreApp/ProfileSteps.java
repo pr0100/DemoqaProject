@@ -72,7 +72,7 @@ public class ProfileSteps {
 
   @Step("Ввести текст в поле поиска")
   public void fillSearchBookInput(String book) {
-    profilePage.searchBookInput().sendKeys(book);
+    profilePage.searchBookInput().setValue(book);
     LOGGER.info("Book for search filled");
   }
 

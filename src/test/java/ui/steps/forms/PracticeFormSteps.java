@@ -25,12 +25,12 @@ public class PracticeFormSteps {
 
   @Step("Заполнить поле 'First Name'")
   public void fillInTheFirstNameField(String name) {
-    practiceFormPage.firstNameElement().sendKeys(name);
+    practiceFormPage.firstNameElement().setValue(name);
   }
 
   @Step("Заполнить поле 'Last Name'")
   public void fillInTheLastNameField(String name) {
-    practiceFormPage.lastNameElement().sendKeys(name);
+    practiceFormPage.lastNameElement().setValue(name);
   }
 
   @Step("Заполнить поле 'Gender Male'")
@@ -40,7 +40,7 @@ public class PracticeFormSteps {
 
   @Step("Заполнить поле 'Mobile'")
   public void fillInTheMobileField(String phone) {
-    practiceFormPage.mobileNumberElement().sendKeys(phone);
+    practiceFormPage.mobileNumberElement().setValue(phone);
   }
 
   @Step("Нажать кнопку 'Submit'")

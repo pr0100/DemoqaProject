@@ -23,8 +23,7 @@
     <aspectjweaver.version>1.9.22.1</aspectjweaver.version>
     <allure-maven.version>2.15.2</allure-maven.version>
     <selenide.version>6.19.1</selenide.version>
-    <log4j-api.version>2.24.1</log4j-api.version>
-    <log4j-core.version>2.24.1</log4j-core.version>
+    <log4j.version>2.24.2</log4j.version>
     <owner.version>1.0.12</owner.version>
     <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
     <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
@@ -95,13 +94,19 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
-      <version>${log4j-api.version}</version>
+      <version>${log4j.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>${log4j-core.version}</version>
+      <version>${log4j.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-iostreams</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>org.aeonbits.owner</groupId>
       <artifactId>owner</artifactId>

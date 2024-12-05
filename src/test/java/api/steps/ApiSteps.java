@@ -15,7 +15,7 @@ import helpers.auth.Authorization;
 import helpers.config.TestData;
 import io.qameta.allure.Step;
 
-import io.restassured.specification.RequestSpecification;
+import java.util.HashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,24 +24,43 @@ public class ApiSteps {
   Authorization authorization = Authorization.getInstance();
   AddBookBody addBookBody = new AddBookBody();
   DeleteBookBody deleteBookBody = new DeleteBookBody();
+  HelpSteps helpSteps = new HelpSteps();
   protected static final Logger LOGGER = LogManager.getLogger();
 
-  @Step("Получить isbn код")
-  public String getFirstIsbn() {
-    return getInfo(requestSpecification(), "", BOOK)
-        .getBodyFieldString("books[0].isbn");
+  @Step("Получить код книги у пользователя")
+  public String getIsbnBookFromAccount() {
+    LOGGER.info("Got book from account");
+    return getAccount(authorization.getUserId())
+        .getBodyFieldStringList("books.isbn").get(0);
   }
 
-  @Step("Задать путь для пользователя")
-  public String setPathForUserID(){
-    LOGGER.info("Path assigned for userID");
-    return "?UserId=" + authorization.getUserId();
-  }
-
-  @Step("Получить инфо {path}")
-  public RestWrapper getInfo(RequestSpecification spec, String param, String path) {
+  @Step("Получить инфо обо всех книгах")
+  public RestWrapper getBooks() {
     return new RestWrapper()
-        .get(spec, param, path);
+        .get(requestSpecification(), new HashMap<>(), BOOK, "");
+  }
+
+  @Step("Получить инфо с аккаунта")
+  public RestWrapper getAccount(String userId) {
+    return new RestWrapper()
+        .get(authSpecification(), new HashMap<>(),
+            ACCOUNT_USER, userId);
+  }
+
+  @Step("Получить инфо о несущестующей книге")
+  public RestWrapper getWrongBook() {
+    HashMap<String, String> params = new HashMap<>();
+    params.put("ISBN", TestData.getWrongIsbn());
+    return new RestWrapper()
+        .get(requestSpecification(), params, BOOK_ISBN, "");
+  }
+
+  @Step("Получить инфо о книге")
+  public RestWrapper getBook() {
+    HashMap<String, String> params = new HashMap<>();
+    params.put("ISBN", helpSteps.getFirstIsbn());
+    return new RestWrapper()
+        .get(requestSpecification(), params, BOOK_ISBN, "");
   }
 
   @Step("Добавить книгу на аккаунт")
@@ -58,25 +77,27 @@ public class ApiSteps {
   }
 
   @Step("Удалить книгу с аккаунта")
-  public RestWrapper deleteBook(String isbn) {
+  public RestWrapper deleteBook() {
     return new RestWrapper()
-        .delete(authSpecification(),
-            deleteBookBody.fillRegParamForDeleteBookRequest(isbn, authorization.getUserId()),
+        .delete(authSpecification(), new HashMap<>(),
+            deleteBookBody.fillRegParamForDeleteBookRequest(getIsbnBookFromAccount(), authorization.getUserId()),
+            BOOK_ISBN);
+  }
+
+  @Step("Удалить несущестующую книгу с аккаунта")
+  public RestWrapper deleteWrongBook() {
+    return new RestWrapper()
+        .delete(authSpecification(), new HashMap<>(),
+            deleteBookBody.fillRegParamForDeleteBookRequest(TestData.getWrongIsbn(), authorization.getUserId()),
             BOOK_ISBN);
   }
 
   @Step("Удалить все книги с аккаунта")
   public RestWrapper deleteAllBooks() {
+    HashMap<String, String> params = new HashMap<>();
+    params.put("UserId", authorization.getUserId());
     return new RestWrapper()
-        .delete(authSpecification(), "", BOOK + setPathForUserID());
-  }
-
-  @Step("Получить код книги у пользователя")
-  public String getIsbnBookFromAccount() {
-    LOGGER.info("Got book from account");
-    return getInfo(authSpecification(), "",
-        ACCOUNT_USER.replace("{UUID}", authorization.getUserId()))
-        .getBodyFieldStringList("books.isbn").get(0);
+        .delete(authSpecification(), params, "", BOOK);
   }
 
 }

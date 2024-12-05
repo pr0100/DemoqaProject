@@ -1,7 +1,6 @@
 package api.tests;
 
 import api.steps.ApiSteps;
-import api.utils.wrapper.RestWrapper;
 import helpers.auth.Authorization;
 import helpers.utils.ApiBase;
 import io.qameta.allure.Epic;
@@ -13,13 +12,11 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 
-import static api.utils.spec.Specification.authSpecification;
-import static helpers.config.Endpoints.ACCOUNT_USER;
+import static api.utils.CustomMatchers.emptyOrNullOrEmptyArray;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.emptyOrNullString;
 import static helpers.config.Config.cfg;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Epic("api")
 @Feature("Тесты методов Account")
@@ -27,13 +24,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AccountTests extends ApiBase {
 
   ApiSteps apiSteps = new ApiSteps();
+  String userId = Authorization.getInstance().getUserId();
+
 
   @Test
   @Severity(SeverityLevel.CRITICAL)
   @DisplayName("Информация об аккаунте")
   void getAccountData() {
-    apiSteps.getInfo(authSpecification(), "",
-            ACCOUNT_USER.replace("{UUID}", Authorization.getInstance().getUserId()))
+    apiSteps.getAccount(userId)
             .shouldHaveStatusCode(200)
             .shouldHaveJsonPath("username", containsString(cfg.getUserName()));
   }
@@ -42,10 +40,9 @@ public class AccountTests extends ApiBase {
   @Severity(SeverityLevel.BLOCKER)
   @DisplayName("Успешная регистрация пользователя")
   void successfulRegistrationUser() {
-    RestWrapper answer = apiSteps.addNewAccount();
-    answer
+    apiSteps.addNewAccount()
         .shouldHaveStatusCode(201)
-        .shouldHaveJsonPath("userID", not(emptyOrNullString()));
-    assertTrue(answer.getBodyFieldStringList("books").isEmpty());
+        .shouldHaveJsonPath("userID", not(emptyOrNullString()))
+        .shouldHaveJsonPath("books", emptyOrNullOrEmptyArray());
   }
 }

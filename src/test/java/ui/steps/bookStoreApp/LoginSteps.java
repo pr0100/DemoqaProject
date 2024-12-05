@@ -35,8 +35,8 @@ public class LoginSteps {
 
   @Step("Заполнить данные для авторизации и нажать кнопку Login")
   public void fillAuthDataField(String name, String password){
-    loginPage.userNameElement().sendKeys(name);
-    loginPage.passwordElement().sendKeys(password);
+    loginPage.userNameElement().setValue(name);
+    loginPage.passwordElement().setValue(password);
     clickLoginBtnField();
     LOGGER.info("Auth data filled and login btn clicked");
   }
