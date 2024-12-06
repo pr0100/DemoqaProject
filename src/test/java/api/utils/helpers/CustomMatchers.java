@@ -1,4 +1,4 @@
-package api.utils;
+package api.utils.helpers;
 
 import java.util.List;
 import org.hamcrest.BaseMatcher;

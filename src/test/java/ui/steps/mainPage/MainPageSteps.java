@@ -21,7 +21,7 @@ public class MainPageSteps {
   @Step("Перейти на страницу Form")
   public void goToFormsPage(){
     LOGGER.info("Form page opened");
-    mainPage.formsLink().click();
+    mainPage.formsLink().shouldHave(Condition.visible).scrollTo().click();
   }
 
   @Step("Перейти на страницу Book Store")

@@ -2,7 +2,7 @@ package api.tests;
 
 import api.steps.ApiSteps;
 import api.steps.HelpSteps;
-import api.utils.wrapper.RestWrapper;
+import api.utils.helpers.RestWrapper;
 import helpers.utils.ApiBase;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -85,6 +85,7 @@ public class BookStoreTests extends ApiBase {
   @Severity(SeverityLevel.NORMAL)
   @DisplayName("Удаление несуществующей книги у пользователя")
   void deleteNotAvailableBookFromAccount() {
+    apiSteps.deleteAllBooks().shouldHaveStatusCode(204);
     apiSteps.addBook()
             .shouldHaveStatusCode(201);
     apiSteps.deleteWrongBook()

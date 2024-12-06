@@ -5,7 +5,7 @@ import static helpers.config.Endpoints.LOGIN;
 import static helpers.config.Config.cfg;
 
 import api.utils.templates.UserAccountBody;
-import api.utils.wrapper.RestWrapper;
+import api.utils.helpers.RestWrapper;
 
 import static api.utils.spec.Specification.requestSpecification;
 

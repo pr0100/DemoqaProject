@@ -23,9 +23,13 @@ public class PracticeFormTests extends BaseTest {
   @Severity(SeverityLevel.BLOCKER)
   @DisplayName("Заполнение формы с минимальным количеством полей")
   void successRegistrationWithMinFields() {
+    String firstName = TestData.getSuccessfulFirstName();
+    String lastName = TestData.getSuccessfulLastName();
+    String phone = TestData.getSuccessfulMobileNumber();
     practiceFormSteps.goToPracticeFormPage();
-    practiceFormSteps.fillMinAuthDataField(TestData.getSuccessfulFirstName(), TestData.getSuccessfulLastName(), TestData.getSuccessfulMobileNumber());
+    practiceFormSteps.fillMinAuthDataField(firstName, lastName, phone);
     practiceFormSteps.checkModalForm();
+    practiceFormSteps.checkModalFormBody(firstName + ' ' + lastName, phone);
   }
 
 }

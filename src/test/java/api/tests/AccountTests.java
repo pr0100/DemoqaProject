@@ -11,8 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-
-import static api.utils.CustomMatchers.emptyOrNullOrEmptyArray;
+import static api.utils.helpers.CustomMatchers.emptyOrNullOrEmptyArray;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.emptyOrNullString;
 import static helpers.config.Config.cfg;

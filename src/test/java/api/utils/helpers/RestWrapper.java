@@ -1,4 +1,4 @@
-package api.utils.wrapper;
+package api.utils.helpers;
 
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -42,14 +42,25 @@ public class RestWrapper {
         return this;
     }
 
-    public RestWrapper get(RequestSpecification spec, HashMap<String, String> params, String path,
-        String userId) {
+    public RestWrapper get(RequestSpecification spec, HashMap<String, String> params, String path) {
         this.response = given(spec)
                 .queryParams(params)
                 .when()
-                .get(path, userId)
+                .get(path)
                 .then()
                 .extract().response();
+        LOGGER.info("get request done");
+        return this;
+    }
+
+    public RestWrapper getWithPath(RequestSpecification spec, HashMap<String, String> params, String path,
+        String route) {
+        this.response = given(spec)
+            .queryParams(params)
+            .when()
+            .get(path, route)
+            .then()
+            .extract().response();
         LOGGER.info("get request done");
         return this;
     }

@@ -10,7 +10,7 @@ import static helpers.config.Endpoints.BOOK_ISBN;
 import api.utils.templates.AddBookBody;
 import api.utils.templates.DeleteBookBody;
 import api.utils.templates.UserAccountBody;
-import api.utils.wrapper.RestWrapper;
+import api.utils.helpers.RestWrapper;
 import helpers.auth.Authorization;
 import helpers.config.TestData;
 import io.qameta.allure.Step;
@@ -37,13 +37,13 @@ public class ApiSteps {
   @Step("Получить инфо обо всех книгах")
   public RestWrapper getBooks() {
     return new RestWrapper()
-        .get(requestSpecification(), new HashMap<>(), BOOK, "");
+        .get(requestSpecification(), new HashMap<>(), BOOK);
   }
 
   @Step("Получить инфо с аккаунта")
   public RestWrapper getAccount(String userId) {
     return new RestWrapper()
-        .get(authSpecification(), new HashMap<>(),
+        .getWithPath(authSpecification(), new HashMap<>(),
             ACCOUNT_USER, userId);
   }
 
@@ -52,7 +52,7 @@ public class ApiSteps {
     HashMap<String, String> params = new HashMap<>();
     params.put("ISBN", TestData.getWrongIsbn());
     return new RestWrapper()
-        .get(requestSpecification(), params, BOOK_ISBN, "");
+        .get(requestSpecification(), params, BOOK_ISBN);
   }
 
   @Step("Получить инфо о книге")
@@ -60,7 +60,7 @@ public class ApiSteps {
     HashMap<String, String> params = new HashMap<>();
     params.put("ISBN", helpSteps.getFirstIsbn());
     return new RestWrapper()
-        .get(requestSpecification(), params, BOOK_ISBN, "");
+        .get(requestSpecification(), params, BOOK_ISBN);
   }
 
   @Step("Добавить книгу на аккаунт")

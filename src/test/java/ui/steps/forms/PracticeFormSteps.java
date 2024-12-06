@@ -53,6 +53,12 @@ public class PracticeFormSteps {
     practiceFormPage.modalTitle().shouldHave(text("Thanks for submitting the form"));
   }
 
+  @Step("Проверить заполнение формы данными")
+  public void checkModalFormBody(String name, String phone) {
+    practiceFormPage.modalStudentName().shouldHave(text(name));
+    practiceFormPage.modalMobile().shouldHave(text(phone));
+  }
+
   @Step("Заполнить форму минимальными данными и отправить")
   public void fillMinAuthDataField(String firstName, String lastName, String mobileNumber){
     fillInTheFirstNameField(firstName);
