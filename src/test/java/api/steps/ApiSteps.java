@@ -9,6 +9,7 @@ import static helpers.config.Endpoints.BOOK_ISBN;
 
 import api.utils.templates.AddBookBody;
 import api.utils.templates.DeleteBookBody;
+import api.utils.templates.GetIsbnBody;
 import api.utils.templates.UserAccountBody;
 import api.utils.helpers.RestWrapper;
 import helpers.auth.Authorization;
@@ -22,8 +23,10 @@ import org.apache.logging.log4j.Logger;
 public class ApiSteps {
 
   Authorization authorization = Authorization.getInstance();
+  UserAccountBody userAccountBody = new UserAccountBody();
   AddBookBody addBookBody = new AddBookBody();
   DeleteBookBody deleteBookBody = new DeleteBookBody();
+  GetIsbnBody getIsbnBody = new GetIsbnBody();
   HelpSteps helpSteps = new HelpSteps();
   protected static final Logger LOGGER = LogManager.getLogger();
 
@@ -34,20 +37,20 @@ public class ApiSteps {
         .getBodyFieldStringList("books.isbn").get(0);
   }
 
-  @Step("Получить инфо обо всех книгах")
+  @Step("Получить информацию обо всех книгах")
   public RestWrapper getBooks() {
     return new RestWrapper()
         .get(requestSpecification(), new HashMap<>(), BOOK);
   }
 
-  @Step("Получить инфо с аккаунта")
+  @Step("Получить информацию с аккаунта")
   public RestWrapper getAccount(String userId) {
     return new RestWrapper()
         .getWithPath(authSpecification(), new HashMap<>(),
             ACCOUNT_USER, userId);
   }
 
-  @Step("Получить инфо о несущестующей книге")
+  @Step("Получить информацию о несущестующей книге")
   public RestWrapper getWrongBook() {
     HashMap<String, String> params = new HashMap<>();
     params.put("ISBN", TestData.getWrongIsbn());
@@ -55,7 +58,7 @@ public class ApiSteps {
         .get(requestSpecification(), params, BOOK_ISBN);
   }
 
-  @Step("Получить инфо о книге")
+  @Step("Получить информацию о книге")
   public RestWrapper getBook() {
     HashMap<String, String> params = new HashMap<>();
     params.put("ISBN", helpSteps.getFirstIsbn());
@@ -64,16 +67,18 @@ public class ApiSteps {
   }
 
   @Step("Добавить книгу на аккаунт")
-  public RestWrapper addBook() {
+  public RestWrapper addBook(String isbn) {
     return new RestWrapper()
-        .post(authSpecification(), BOOK, addBookBody.fillRegParamForAddBookRequest());
+        .post(authSpecification(), BOOK,
+            addBookBody.fillRegParamForAddBookRequest(authorization.getUserId(),
+                getIsbnBody.getAvailableIsbn(isbn)));
   }
 
   @Step("Создать аккаунт")
   public RestWrapper addNewAccount() {
     return new RestWrapper()
         .post(authSpecification(), ACCOUNT_REG,
-            UserAccountBody.getParams(TestData.getSuccessfulUserName(), TestData.getSuccessfulPasswd()));
+            userAccountBody.getParams(TestData.getSuccessfulUserName(), TestData.getSuccessfulPasswd()));
   }
 
   @Step("Удалить книгу с аккаунта")
@@ -81,6 +86,14 @@ public class ApiSteps {
     return new RestWrapper()
         .delete(authSpecification(), new HashMap<>(),
             deleteBookBody.fillRegParamForDeleteBookRequest(getIsbnBookFromAccount(), authorization.getUserId()),
+            BOOK_ISBN);
+  }
+
+  @Step("Удалить книгу без авторизации")
+  public RestWrapper deleteBookError() {
+    return new RestWrapper()
+        .delete(requestSpecification(), new HashMap<>(),
+            "",
             BOOK_ISBN);
   }
 

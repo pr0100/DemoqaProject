@@ -2,20 +2,17 @@ package api.tests;
 
 import api.steps.ApiSteps;
 import api.steps.HelpSteps;
-import api.utils.helpers.RestWrapper;
 import helpers.utils.ApiBase;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
-import java.util.HashMap;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 
-import static api.utils.spec.Specification.requestSpecification;
-import static helpers.config.Endpoints.*;
+import static io.qameta.allure.Allure.step;
 import static org.hamcrest.Matchers.*;
 
 @Epic("api")
@@ -30,7 +27,8 @@ public class BookStoreTests extends ApiBase {
   @Severity(SeverityLevel.BLOCKER)
   @DisplayName("Добавление книги пользователю")
   void addBookToAcc() {
-    apiSteps.addBook()
+    String isbn = helpSteps.getIsbn();
+    apiSteps.addBook(isbn)
         .shouldHaveStatusCode(201)
         .shouldHaveJsonPath("books", not(emptyOrNullString()));
   }
@@ -56,9 +54,10 @@ public class BookStoreTests extends ApiBase {
   @Severity(SeverityLevel.NORMAL)
   @DisplayName("Успешный поиск книги с определенным ISBN")
   void successfulBookSearch() {
+    String isbn = helpSteps.getFirstIsbn();
     apiSteps.getBook()
         .shouldHaveStatusCode(200)
-        .shouldHaveJsonPath("isbn", containsString(helpSteps.getFirstIsbn()));
+        .shouldHaveJsonPath("isbn", containsString(isbn));
   }
 
   @Test
@@ -74,8 +73,11 @@ public class BookStoreTests extends ApiBase {
   @Severity(SeverityLevel.NORMAL)
   @DisplayName("Удаление книги у пользователя")
   void deleteBookFromAccount() {
-    apiSteps.addBook()
-        .shouldHaveStatusCode(201);
+    step("Предварительные шаги", () -> {
+      String isbn = helpSteps.getIsbn();
+      apiSteps.addBook(isbn)
+          .shouldHaveStatusCode(201);
+    });
     apiSteps
         .deleteBook()
         .shouldHaveStatusCode(204);
@@ -85,9 +87,6 @@ public class BookStoreTests extends ApiBase {
   @Severity(SeverityLevel.NORMAL)
   @DisplayName("Удаление несуществующей книги у пользователя")
   void deleteNotAvailableBookFromAccount() {
-    apiSteps.deleteAllBooks().shouldHaveStatusCode(204);
-    apiSteps.addBook()
-            .shouldHaveStatusCode(201);
     apiSteps.deleteWrongBook()
             .shouldHaveStatusCode(400)
             .shouldHaveJsonPath("message",
@@ -98,8 +97,7 @@ public class BookStoreTests extends ApiBase {
   @Severity(SeverityLevel.CRITICAL)
   @DisplayName("Удаление книги без авторизации")
   void deleteBookFromAccountNotAuth() {
-    new RestWrapper()
-            .delete(requestSpecification(), new HashMap<>(), "", BOOK_ISBN)
+    apiSteps.deleteBookError()
             .shouldHaveStatusCode(401)
             .shouldHaveJsonPath("message",
                     containsString("User not authorized!"));

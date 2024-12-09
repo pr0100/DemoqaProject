@@ -1,8 +1,6 @@
 package helpers.config;
 
 import com.github.javafaker.Faker;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 import java.util.Random;
 
 public class TestData {
@@ -10,7 +8,7 @@ public class TestData {
   private static final Faker faker = new Faker();
 
   public static int getElemArrayBooks() {
-    return faker.number().numberBetween(0, 7);
+    return faker.number().numberBetween(1, 7);
   }
 
   public static String generateRandomDigits(int length) {

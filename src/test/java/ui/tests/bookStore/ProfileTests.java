@@ -2,8 +2,10 @@ package ui.tests.bookStore;
 
 
 import static helpers.config.Config.cfg;
+import static io.qameta.allure.Allure.step;
 
 import api.steps.ApiSteps;
+import api.steps.HelpSteps;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import ui.steps.bookStoreApp.LoginSteps;
@@ -23,22 +25,29 @@ public class ProfileTests extends BaseTest {
   ProfileSteps profileSteps = new ProfileSteps();
   LoginSteps loginSteps = new LoginSteps();
   ApiSteps apiSteps = new ApiSteps();
+  HelpSteps helpSteps = new HelpSteps();
 
   @Test
   @Severity(SeverityLevel.NORMAL)
   @DisplayName("Сообщение для неавторизованных пользователей")
   void profilePage() {
     profileSteps.goToProfilePage();
-    profileSteps.checkNotLoggingLabel();
+    step("Проверки", () ->
+      profileSteps.checkNotLoggingLabel()
+    );
   }
 
   @Test
   @Severity(SeverityLevel.CRITICAL)
   @DisplayName("Деавторизация")
   void logout() {
-    profileSteps.goToProfilePageAndLogin();
+    step("Предварительные шаги", () ->
+      profileSteps.goToProfilePageAndLogin()
+    );
     profileSteps.logOut();
-    loginSteps.checkCurrentURL();
+    step("Проверки", () ->
+      loginSteps.checkCurrentURL()
+    );
   }
 
   @Test
@@ -46,37 +55,52 @@ public class ProfileTests extends BaseTest {
   @DisplayName("Имя пользователя")
   void userName() {
     profileSteps.goToProfilePageAndLogin();
-    profileSteps.checkUserName(cfg.getUserName());
+    step("Проверки", () ->
+      profileSteps.checkUserName(cfg.getUserName())
+    );
   }
 
   @Test
   @Severity(SeverityLevel.MINOR)
   @DisplayName("Поиск книги, которой нет у пользователя")
   void unsuccessfulSearchBookOnAccount() {
-    profileSteps.goToProfilePageAndLogin();
+    step("Предварительные шаги", () ->
+      profileSteps.goToProfilePageAndLogin()
+    );
     profileSteps.fillSearchBookInput("книга");
-    profileSteps.checkTableLabel();
+    step("Проверки", () ->
+      profileSteps.checkTableLabel()
+    );
   }
 
   @Test
   @Severity(SeverityLevel.BLOCKER)
   @DisplayName("Удаление всех книг у пользователя")
   void deleteAllBooksFromAccount() {
-    profileSteps.goToProfilePageAndLogin();
+    step("Предварительные шаги", () ->
+      profileSteps.goToProfilePageAndLogin()
+    );
     profileSteps.deleteAllRecords();
-    profileSteps.checkTableLabel();
+    step("Проверки", () ->
+      profileSteps.checkTableLabel()
+    );
   }
 
   @Test
   @Severity(SeverityLevel.CRITICAL)
-  @DisplayName("Добавление книги API и удаление UI")
+  @DisplayName("Удаление одной книги")
   void addApiDeleteUi() {
-    apiSteps.addBook().shouldHaveStatusCode(201);
-    profileSteps.goToProfilePageAndLogin();
+    step("Предварительные шаги", () -> {
+      String isbn = helpSteps.getIsbn();
+      apiSteps.addBook(isbn).shouldHaveStatusCode(201);
+      profileSteps.goToProfilePageAndLogin();
+    });
     profileSteps.deleteRecord();
-    profileSteps.checkTableLabel();
-    profileSteps.logOut();
-    loginSteps.checkCurrentURL();
+    step("Проверки", () -> {
+      profileSteps.checkTableLabel();
+      profileSteps.logOut();
+      loginSteps.checkCurrentURL();
+    });
   }
 
 }

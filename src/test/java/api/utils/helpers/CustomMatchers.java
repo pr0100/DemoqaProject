@@ -6,7 +6,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 
 public class CustomMatchers {
-  public static Matcher<String> emptyOrNullOrEmptyArray() {
+  public static Matcher<String> emptyOrNullOrEmptyList() {
     return new BaseMatcher<>() {
       @Override
       public boolean matches(Object item) {

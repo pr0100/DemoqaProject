@@ -23,6 +23,7 @@ public class Authorization {
 
   private Authorization() {}
 
+  UserAccountBody userAccountBody = new UserAccountBody();
   public static synchronized Authorization getInstance() {
     return instance;
   }
@@ -31,7 +32,7 @@ public class Authorization {
     if (!isAuthenticated) {
       LOGGER.info("Not Authenticated");
       RestWrapper postLogin = new RestWrapper()
-          .post(requestSpecification(), LOGIN, UserAccountBody.getParams(cfg.getUserName(), cfg.getPassword()));
+          .post(requestSpecification(), LOGIN, userAccountBody.getParams(cfg.getUserName(), cfg.getPassword()));
       authParams = new HashMap<>();
       authParams.put("userId", postLogin.getBodyFieldString("userId"));
       authParams.put("token", postLogin.getBodyFieldString("token"));

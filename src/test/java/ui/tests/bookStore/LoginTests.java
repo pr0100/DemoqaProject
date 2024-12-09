@@ -2,6 +2,7 @@ package ui.tests.bookStore;
 
 
 import static helpers.config.Config.cfg;
+import static io.qameta.allure.Allure.step;
 
 
 import helpers.config.TestData;
@@ -32,9 +33,11 @@ public class LoginTests extends BaseTest {
   void loginWithoutData() {
     loginSteps.goToLoginPage();
     loginSteps.clickLoginBtnField();
-    loginSteps.checkUserNameBorderColor();
-    loginSteps.checkPasswordBorderColor();
-    loginSteps.checkCurrentURL();
+    step("Проверки", () -> {
+      loginSteps.checkUserNameBorderColor();
+      loginSteps.checkPasswordBorderColor();
+      loginSteps.checkCurrentURL();
+    });
   }
 
   @Test
@@ -43,7 +46,9 @@ public class LoginTests extends BaseTest {
   void successfulLogin() {
     loginSteps.goToLoginPage();
     loginSteps.fillAuthDataField(cfg.getUserName(), cfg.getPassword());
-    profileSteps.checkCurrentURL();
+    step("Проверки", () ->
+      profileSteps.checkCurrentURL()
+    );
   }
 
   @Test
@@ -52,8 +57,10 @@ public class LoginTests extends BaseTest {
   void unsuccessfulLogin() {
     loginSteps.goToLoginPage();
     loginSteps.fillAuthDataField(TestData.getSuccessfulUserName(), TestData.getWrongPassword());
-    loginSteps.checkCurrentURL();
-    loginSteps.checkErrorMessage();
+    step("Проверки", () -> {
+      loginSteps.checkCurrentURL();
+      loginSteps.checkErrorMessage();
+    });
   }
 
   @Test
@@ -62,6 +69,8 @@ public class LoginTests extends BaseTest {
   void newUserBtnToRegisterPage() {
     loginSteps.goToLoginPage();
     loginSteps.clickNewUserBtnField();
-    registerSteps.checkCurrentURL();
+    step("Проверки", () ->
+      registerSteps.checkCurrentURL()
+    );
   }
 }

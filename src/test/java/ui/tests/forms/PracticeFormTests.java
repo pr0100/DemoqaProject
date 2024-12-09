@@ -1,6 +1,8 @@
 package ui.tests.forms;
 
 
+import static io.qameta.allure.Allure.step;
+
 import helpers.config.TestData;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -28,8 +30,10 @@ public class PracticeFormTests extends BaseTest {
     String phone = TestData.getSuccessfulMobileNumber();
     practiceFormSteps.goToPracticeFormPage();
     practiceFormSteps.fillMinAuthDataField(firstName, lastName, phone);
-    practiceFormSteps.checkModalForm();
-    practiceFormSteps.checkModalFormBody(firstName + ' ' + lastName, phone);
+    step("Проверки", () -> {
+      practiceFormSteps.checkModalForm();
+      practiceFormSteps.checkModalFormBody(firstName + ' ' + lastName, phone);
+    });
   }
 
 }

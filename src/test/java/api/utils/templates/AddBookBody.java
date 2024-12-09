@@ -1,16 +1,15 @@
 package api.utils.templates;
 
 import api.utils.models.AddBookRequestModel;
-import helpers.auth.Authorization;
+import api.utils.models.IsbnModel;
+import java.util.List;
 
 public class AddBookBody {
 
-  GetIsbnBody getIsbnBody = new GetIsbnBody();
-
-  public AddBookRequestModel fillRegParamForAddBookRequest() {
+  public AddBookRequestModel fillRegParamForAddBookRequest(String userId, List<IsbnModel> isbn) {
     AddBookRequestModel regParams = new AddBookRequestModel();
-    regParams.setUserId(Authorization.getInstance().getUserId());
-    regParams.setCollectionOfIsbns(getIsbnBody.getAvailableIsbn());
+    regParams.setUserId(userId);
+    regParams.setCollectionOfIsbns(isbn);
     return regParams;
   }
 

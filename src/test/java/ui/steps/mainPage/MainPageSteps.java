@@ -12,7 +12,7 @@ public class MainPageSteps {
   MainPage mainPage = new MainPage();
   protected static final Logger LOGGER = LogManager.getLogger();
 
-  @Step("Перейти на главную страницу")
+  @Step("Базовый шаг - Перейти на главную страницу")
   public void goToMainPage() {
     LOGGER.info("Main page opened");
     mainPage.demoqaLink().scrollTo().click();

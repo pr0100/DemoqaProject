@@ -1,5 +1,7 @@
 package ui.tests.bookStore;
 
+import static io.qameta.allure.Allure.step;
+
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import ui.steps.bookStoreApp.BookStoreSteps;
@@ -25,7 +27,9 @@ public class BookStoreTests extends BaseTest {
   void changeRows() {
     mainPageSteps.goToBookStorePage();
     bookStoreSteps.selectSizeRows("5");
-    bookStoreSteps.checkNumberBooks(5);
+    step("Проверки", () ->
+      bookStoreSteps.checkNumberBooks(5)
+    );
   }
 
 }

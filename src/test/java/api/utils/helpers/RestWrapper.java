@@ -1,5 +1,6 @@
 package api.utils.helpers;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import java.util.HashMap;
@@ -65,12 +66,14 @@ public class RestWrapper {
         return this;
     }
 
+    @Step("Проверить код = {statusCode}")
     public RestWrapper shouldHaveStatusCode(int statusCode) {
         response.then().assertThat().statusCode(statusCode);
         LOGGER.info("Status code checked '{}'", statusCode);
         return this;
     }
 
+    @Step("Проверить {jsonPath} = {matcher}")
     public RestWrapper shouldHaveJsonPath(String jsonPath, Matcher<String> matcher) {
         response.then().assertThat().body(jsonPath, matcher);
         LOGGER.info("Json path checked '{}'", jsonPath);
